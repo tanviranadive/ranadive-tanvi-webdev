@@ -1,30 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>Web Dev Course Home Page</title>
+    <style>
+        body
+        {
+            padding-top: 10px;
+            background-color: #333333;
+            color: #F0F0F0;
+
+        }
+
+        h1 {
+            color: #F0F0F0;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>Web Dev Course Home Page</h1>
+    <div class="container">
+        <div class="page-header" align="center">
+            <h1>Web Dev Course Home Page</h1>
+        </div>
 
-    <p>
-        Customize this home page to your linking.
-    </p>
+        <div class="row">
+        <div class="col-md-4">
 
-    <h2>Required links</h2>
-    <ul>
-        <li>
-            <a href="project/index.html">Project</a>
-        </li>
-        <li>
-            <a href="assignment/index.html">Assignment</a>
-        </li>
-        <li>
-            <a href="test/index.html">Test MongoDB</a>
-        </li>
-        <li>
-            <a href="https://github.com/jannunzi/web-dev-template">Your public repository at GitHub.com</a>
-        </li>
-    </ul>
+            <div class="panel panel-default" id="panel">
+                <div class="panel-heading">
+                    <h2 class=""panel-title">Required links</h2>
+                </div>
+                <ul class="list-group">
+                        <li class="list-group-item">
+                        <a href="project/index.html">Project</a>
+                        </li>
+                        <li class="list-group-item">
+                        <a href="assignment/index.html">Assignment</a>
+                        </li>
+                        <li class="list-group-item">
+                        <a href="test/index.html">Test MongoDB</a>
+                        </li>
+                        <li class="list-group-item">
+                        <a href="https://github.com/tanviranadive/ranadive-tanvi-webdev">Your public repository at GitHub.com</a>
+                        </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
