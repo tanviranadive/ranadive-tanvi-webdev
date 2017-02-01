@@ -10,8 +10,8 @@ input.form-control{
 body{
     margin-top:60px;
     margin-bottom:60px;
-    padding-left:3px;
-    padding-right:3px;
+    padding-left:5px;
+    padding-right:5px;
 }
 
 h1{text-align:center;
@@ -124,7 +124,15 @@ li.borderless{
 
 img
 {
-    margin-bottom:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+
+}
+
+iframe
+{
+    margin-top:5px;
+    margin-bottom:15px;
 
 }
 
@@ -136,3 +144,5 @@ p{
     padding-left: 5px;
     padding-right: 5px;}
 
+.list-group a{
+    text-decoration: none;}
