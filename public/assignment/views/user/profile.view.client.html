@@ -1,0 +1,87 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+
+            <div class="navbar-text pull-right">
+                <a href="#/profile">
+                    <span class="glyphicon glyphicon-ok tr-header-right-margin"></span>
+                </a>
+            </div>
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">Profile</a>
+        </div>
+    </div>
+</nav>
+
+<div class="alert alert-danger" ng-show="model.error">
+    {{model.error}}
+</div>
+
+<div class="alert alert-success" ng-show="model.message">
+    {{model.message}}
+</div>
+
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input ng-model="model.user.username"
+                   type="text"
+                   class="form-control"
+                   placeholder="username"
+                   id="username">
+
+            <label for="email">Email</label>
+            <input
+                   type="email"
+                   class="form-control"
+                   placeholder="abc@xyz.com"
+                   id="email">
+
+            <label for="firstname">First Name</label>
+            <input ng-model="model.user.firstName"
+                   type="text"
+                   class="form-control"
+                   placeholder="First name"
+                   id="firstname">
+
+            <label for="lastname">Last Name</label>
+            <input ng-model="model.user.lastName"
+                   type="text"
+                   class="form-control"
+                   placeholder="Last name"
+                   id="lastname">
+
+            <label>Password</label>
+            <input class="form-control" type="password" placeholder="Password"/>
+
+            <a href="#/user/{{model.user._id}}/website" class="btn btn-primary btn-block">
+                Websites
+            </a>
+
+            <a ng-click="model.update(model.user)"
+               class="btn btn-primary btn-block">
+                Update
+            </a>
+
+            <a ng-click="model.delete(model.user)"
+               class="btn btn-danger btn-block">
+                Delete
+            </a>
+            <a href="#/login" class="btn btn-danger btn-block">Logout</a>
+
+
+
+        </div>
+    </form>
+
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-footer navbar-text pull-right">
+                <a href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+</div>

@@ -1,0 +1,47 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="navbar-link navbar-text pull-left tr-header-left-margin">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        </div>
+
+        <div class="navbar-text pull-right tr-header-right-margin">
+            <a href="#">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </div>
+
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">
+                Edit Widget
+            </a>
+        </div>
+
+    </div>
+</nav>
+<div class="container-fluid"
+     ng-include="model.getEditorTemplateUrl(model.widget.widType)">
+
+</div>
+
+<div>
+    <a ng-click="model.updateWid(model.widget)" class="btn btn-block tr-upload-button">Update</a>
+    <a href="#" class="btn btn-block tr-upload-button">Create</a>
+</div>
+
+
+
+<div class="container">
+
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-footer navbar-text pull-right">
+                <a href="#/user/{{model.userId}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+</div>
