@@ -8,23 +8,31 @@
 
     function profileController($routeParams, UserService, $location){
         var vm = this;
-        var userId = $routeParams['uid'];
-        vm.update = function(newUser){
-            var user = UserService.updateUser(userId, newUser);
+        vm.userId = $routeParams['uid'];
+        vm.update = updateUsr;
+        vm.delete = deleteUsr;
+
+        function init() {
+
+                var user = UserService.findUserById(vm.userId);
+                vm.user = user;
+            }
+            init();
+
+
+        function deleteUsr(){
+            UserService.deleteUser(vm.userId);
+            $location.url("/login");
+        };
+
+        function updateUsr(newUser){
+            var user = UserService.updateUser(vm.userId, newUser);
             if(user == null){
-            vm.error = "Unable to update user details";
+                vm.error = "Unable to update user details";
             }
             else{
                 vm.message = "User updated successfully.";
             }
-        };
-
-        var user = UserService.findUserById(userId);
-        vm.user = user;
-
-        vm.delete = function(){
-            UserService.deleteUser(userId);
-            $location.url("/login");
         };
     }
 

@@ -13,11 +13,9 @@
         function login(user) {
             var loginUser = UserService.findUserByCredentials(user.username, user.password);
             if (loginUser) {
-                $location.url("/user/" + loginUser._id);
-            }
+                $location.url("/user/" + loginUser._id);}
             else {
-                vm.error = "user not found.";
-            }
+                    vm.error = "user not found.";}
         }
     }
 

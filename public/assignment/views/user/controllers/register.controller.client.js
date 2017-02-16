@@ -7,8 +7,9 @@
 
     function registerController($routeParams, UserService, $location){
         var vm = this;
+        vm.createUsr = createUsr;
 
-        vm.createUsr = function(newUser){
+        function createUsr(newUser){
             var user = UserService.createUser(newUser);
             if(user==null){
                 vm.error = "Unable to create user details";}

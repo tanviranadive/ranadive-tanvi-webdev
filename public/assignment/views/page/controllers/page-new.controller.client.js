@@ -19,7 +19,6 @@
 
         function createPage (page) {
             PageService.createPage(vm.websiteId, page);
-            //vm.websites = WebsiteService.findAllWebsitesForUser(vm.userId);
             $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
         };
     }
