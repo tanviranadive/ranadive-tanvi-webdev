@@ -10,6 +10,10 @@
             <label for="youtubewidth">Width (%) </label>
             <input ng-model="model.widget.width" class="form-control" id="youtubewidth"/>
         </div>
+        <div>
+            <a ng-click="model.updateWid(model.widget)" class="btn btn-primary btn-block">Update</a>
+            <a ng-click="model.deleteWidget(model.widget)" class="btn btn-danger btn-block">Delete</a>
+        </div>
     </form>
 </div>
 

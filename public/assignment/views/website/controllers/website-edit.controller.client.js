@@ -15,25 +15,51 @@
         vm.deleteWebsite = deleteWebsite;
 
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-            vm.website = WebsiteService.findWebsiteById(vm.websiteId);
+            var promise = WebsiteService.findWebsitesByUser(vm.userId);
+            promise.success(function (websites) {
+                vm.websites = websites;
+            });
+            promise = WebsiteService.findWebsiteById(vm.websiteId);
+            promise.success(function (website) {
+
+                vm.website = website;
+
+            });
         }
         init();
 
 
         function updateWeb (newWebsite){
-            var website = WebsiteService.updateWebsite(vm.websiteId, newWebsite);
-            if(website==null){
-                vm.error = "Unable to update website details";}
-            else{
-                vm.message = "Website updated successfully.";}
+            WebsiteService
+                .updateWebsite(vm.websiteId, newWebsite)
+                .success(function (website){
+                    if(website == null){
+                        vm.error = "Unable to update website details";
+                    }
+                    else{
+                        vm.message = "website updated successfully.";
+                        $location.url("/user/"+vm.userId+"/website");
+                    }
+                });
 
-            $location.url("/user/"+vm.userId+"/website");
         };
 
-        function deleteWebsite () {
-            WebsiteService.deleteWebsite(vm.websiteId);
-            $location.url("/user/"+vm.userId+"/website");
+
+
+        function deleteWebsite (website) {
+            var answer = confirm("Are you sure?");
+            if(answer) {
+                WebsiteService
+                    .deleteWebsite(website._id)
+                    .success(function(){
+                        $location.url("/user/"+vm.userId+"/website");
+                    })
+                    .error(function(){
+                        vm.error("Unable to delete website");
+                    })
+
+            }
+
         };
     }
 })();

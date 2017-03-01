@@ -15,24 +15,51 @@
         vm.pageUpdate = pageUpdate;
 
         function init() {
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
-            vm.page = PageService.findPageById(vm.pageId);
+
+            var promise = PageService.findPageByWebsiteId(vm.websiteId);
+            promise.success(function (pages) {
+
+                vm.pages = pages;
+            });
+
+            promise = PageService.findPageById(vm.pageId);
+            promise.success(function (page) {
+
+                vm.page = page;
+        });
         }
         init();
 
-        function deletePage () {
-            PageService.deletePage(vm.pageId);
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-        };
+        function deletePage (page) {
 
-        function pageUpdate (page){
-            var page = PageService.updatePage(vm.pageId, page);
-            if(page==null){
-                vm.error = "Unable to update page details";}
-            else{
-                vm.message = "Page updated successfully.";}
+            var answer = confirm("Are you sure?");
 
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+            if (answer) {
+                PageService
+                    .deletePage(page._id)
+                    .success(function () {
+                        $location.url("user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    })
+                    .error(function () {
+                        vm.error("Unable to delete page");
+                    })
+            }
+            ;
+        }
+
+        function pageUpdate (newPage){
+
+            PageService
+                .updatePage(vm.pageId, newPage)
+                .success(function (page){
+                    if(page == null){
+                        vm.error = "Unable to update page details";
+                    }
+                    else{
+                        vm.message = "page updated successfully.";
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+                    }
+                });
         };
     }
 })();

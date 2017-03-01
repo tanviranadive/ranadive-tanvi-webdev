@@ -9,10 +9,16 @@
 
     function WebsiteListController($routeParams, WebsiteService) {
         var vm = this;
-        vm.userId = $routeParams.uid;
+        var userId = $routeParams.uid;
+        vm.userId = userId;
 
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            WebsiteService
+                .findWebsitesByUser(userId)
+                .success(function(websites){
+                    vm.websites = websites;
+            });
+            //vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
         }
         init();
     }

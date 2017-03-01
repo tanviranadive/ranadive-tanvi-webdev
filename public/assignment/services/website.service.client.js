@@ -6,7 +6,7 @@
         .module("WebAppMaker")
         .factory("WebsiteService", websiteService);
 
-    function websiteService() {
+    function websiteService($http) {
         var websites = [
             { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem", created: new Date() },
             { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem", created: new Date() },
@@ -29,47 +29,26 @@
 
 
         function findWebsiteById(websiteId) {
-            for (var w in websites) {
-                if (websites[w]._id == websiteId) {
-                    return angular.copy(websites[w]);
-                }
-            }
-            return null;
+
+            return $http.get("/api/website/"+websiteId);
         }
 
         function findWebsitesByUser(userId) {
-            var sites = [];
-            for (w in websites) {
-                if (websites[w].developerId == userId) {
-                    sites.push(websites[w]);
-                }
-            }
-            return sites;
+            return $http.get("/api/user/"+userId+"/website");
         }
 
         function deleteWebsite(websiteId) {
-            for(var w in websites) {
-                if(websites[w]._id == websiteId) {
-                    websites.splice(w, 1);
-                }
-            }
+            return $http.delete("/api/website/"+websiteId);
         }
 
         function updateWebsite(websiteId, newWebsite) {
-            for(var w in websites) {
-                if(websites[w]._id == websiteId) {
-                    websites[w].name = newWebsite.name;
-                    websites[w].description = newWebsite.description;
-                    return websites[w];
-                }
-            }
-            return null;
+
+            return $http.put("/api/website/"+websiteId, newWebsite);
         }
 
         function createWebsite(userId, website) {
-            website.developerId = userId;
-            website._id = (new Date()).getTime();
-            websites.push(website);
+
+            return $http.post("/api/user/"+userId+"/website", website);
         }
     }
 })();

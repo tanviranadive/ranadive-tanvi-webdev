@@ -13,13 +13,28 @@
         vm.createWebsite = createWebsite;
 
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            var promise = WebsiteService.findWebsitesByUser(vm.userId);
+            promise.success(function (websites) {
+                vm.websites = websites;
+            });
         }
+
         init();
 
-        function createWebsite (website) {
-            WebsiteService.createWebsite(vm.userId, website);
-            $location.url("/user/"+vm.userId+"/website");
+        function createWebsite(website) {
+
+            WebsiteService
+
+                .createWebsite(vm.userId, website)
+                .success(function (website) {
+                    $location.url("/user/" + vm.userId + "/website");
+                })
+                .error(function () {
+                    vm.error = "sorry could not create new website";
+                })
+
+
         };
     }
+
 })();

@@ -1,14 +1,18 @@
 <h1>IMAGE Editor</h1>
 
 <div class="container-fluid">
-    <form>
-        <div class="form-group">
-            <label for="imgurl">URL</label>
-            <input ng-model="model.widget.url" type="url" class="form-control" id="imgurl"/>
-        </div>
+    <form action="/api/upload" method="post" enctype="multipart/form-data">
+        <input name="myFile" type="file" class="form-control"/>
+        <input name="uid" value="{{model.userId}}" style="display: none"/>
+        <input name="wid" value="{{model.websiteId}}" style="display: none"/>
+        <input name="widgetId" value="{{model.widget._id}}" style="display: none"/>
         <div class="form-group">
             <label for="imgwidth">Width (%) </label>
             <input ng-model="model.widget.width"  class="form-control" id="imgwidth"/>
+        </div>
+        <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
+        <div>
+            <a ng-click="model.deleteWidget(model.widget)" class="btn btn-danger btn-block">Delete</a>
         </div>
     </form>
 </div>

@@ -14,25 +14,42 @@
 
         function init() {
 
-                var user = UserService.findUserById(vm.userId);
-                vm.user = user;
+                var promise = UserService.findUserById(vm.userId);
+                promise.success(function(user){
+
+                    vm.user = user;
+                });
             }
             init();
 
 
-        function deleteUsr(){
-            UserService.deleteUser(vm.userId);
-            $location.url("/login");
+        function deleteUsr(user){
+            var answer = confirm("Are you sure?");
+            if(answer) {
+                UserService
+                    .deleteUser(user._id)
+                    .success(function(){
+                    $location.url("/login");
+                })
+                .error(function(){
+                    vm.error("Unable to delete user");
+                })
+
+            }
         };
 
         function updateUsr(newUser){
-            var user = UserService.updateUser(vm.userId, newUser);
-            if(user == null){
-                vm.error = "Unable to update user details";
-            }
-            else{
-                vm.message = "User updated successfully.";
-            }
+            UserService
+                .updateUser(vm.userId, newUser)
+                .success(function (user){
+                    if(user == null){
+                        vm.error = "Unable to update user details";
+                    }
+                    else{
+                        vm.message = "User updated successfully.";
+                    }
+                });
+
         };
     }
 
