@@ -106,19 +106,19 @@ module.exports = function(app){
         var initial_index = parseInt(req.query.initial);
         var final_index = parseInt(req.query.final);
 
-        var allWidgetsForPage = widgets.filter(function (w) {
+        var widgs = widgets.filter(function (w) {
             return w.pageId == pageId;
         });
 
         widgets = widgets.filter(function (w) {
-            return allWidgetsForPage.indexOf(w) < 0;
+            return widgs.indexOf(w) < 0;
         });
 
-        var elem_at_initial_pos = allWidgetsForPage[initial_index];
-        allWidgetsForPage.splice(initial_index, 1);
-        allWidgetsForPage.splice(final_index, 0, elem_at_initial_pos);
+        var elem_at_initial_pos = widgs[initial_index];
+        widgs.splice(initial_index, 1);
+        widgs.splice(final_index, 0, elem_at_initial_pos);
 
-        widgets = widgets.concat(allWidgetsForPage);
+        widgets = widgets.concat(widgs);
         res.sendStatus(200);
     }
 
@@ -128,20 +128,20 @@ module.exports = function(app){
         var wid = req.body.wid;
         var myFile = req.file;
 
-        imgWidget = widgets.find(function (i) {
+        imageWidget = widgets.find(function (i) {
             return i._id == widgetId;
         });
 
-        if (imgWidget.url) {
-            fs.unlink(uploadsFolderPath + "/" + imgWidget["fileName"], function () {
+        if (imageWidget.url) {
+            fs.unlink(uploadsFolderPath + "/" + imageWidget["fileName"], function () {
             });
         }
 
-        imgWidget.url = req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
+        imageWidget.url = req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
 
-        imgWidget["fileName"] = myFile.filename;
+        imageWidget["fileName"] = myFile.filename;
 
-        res.redirect(req.get('referrer') + "#/user/" + uid + "/website/" + wid + "/page/" + imgWidget.pageId + "/widget");
+        res.redirect(req.get('referrer') + "#/user/" + uid + "/website/" + wid + "/page/" + imageWidget.pageId + "/widget");
     }
 
     };
