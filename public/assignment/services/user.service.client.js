@@ -9,7 +9,6 @@
     function userService($http){
 
         var api = {
-            "users": users,
             "findUserByCredentials": findUserByCredentials,
             "findUserByUsername": findUserByUsername,
             "updateUser": updateUser,
