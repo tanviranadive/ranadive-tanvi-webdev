@@ -11,10 +11,10 @@ module.exports = function(app) {
     app.post("/api/user", createUser);
 
     var users = [
-        {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder"},
-        {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley"},
-        {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia"},
-        {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
+        {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder",email: "alice@abc.com"},
+        {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley", email: "bob@abc.com"},
+        {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia", email: "charly@abc.com"},
+        {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi", email: "jose@abc.com"}
     ];
 
     function findUser(req, res) {
@@ -68,6 +68,7 @@ module.exports = function(app) {
             if (users[u]._id == userId) {
                 users[u].firstName = newUser.firstName;
                 users[u].lastName = newUser.lastName;
+                users[u].email = newUser.email;
                 res.json(users[u]);
                 return;
             }
