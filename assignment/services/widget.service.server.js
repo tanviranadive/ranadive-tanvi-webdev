@@ -80,6 +80,12 @@ module.exports = function(app){
             if(widgets[w]._id == widgetId) {
                 if(widgets[w].widgetType == "IMAGE" || widgets[w].widgetType == "YOUTUBE") {
                     widgets[w].width = newWidget.width;
+                    //widgets[w].url = newWidget.url;
+                    res.json(widgets[w]);
+                    return;
+                }
+                else if(widgets[w].widgetType == "YOUTUBE") {
+                    widgets[w].width = newWidget.width;
                     widgets[w].url = newWidget.url;
                     res.json(widgets[w]);
                     return;
