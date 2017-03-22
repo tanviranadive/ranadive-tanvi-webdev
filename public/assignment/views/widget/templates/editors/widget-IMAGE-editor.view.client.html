@@ -5,6 +5,7 @@
         <input name="myFile" type="file" class="form-control"/>
         <input name="uid" value="{{model.userId}}" style="display: none"/>
         <input name="wid" value="{{model.websiteId}}" style="display: none"/>
+        <input name="pageId" value="{{model.pageId}}" style="display: none"/>
         <input name="widgetId" value="{{model.widget._id}}" style="display: none"/>
         <div class="form-group">
             <label for="imgwidth">Width (%) </label>
@@ -12,6 +13,10 @@
         </div>
         <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
         <div>
+            <a class="btn btn-primary btn-block"
+               href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}/flickrsearch">
+                Search Flickr
+            </a>
             <a ng-click="model.updateWid(model.widget)" class="btn btn-primary btn-block">Update Width</a>
             <a ng-click="model.deleteWidget(model.widget)" class="btn btn-danger btn-block">Delete</a>
         </div>

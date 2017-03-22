@@ -26,6 +26,8 @@
         }
 
         function updateWidget(widgetId, newWidget) {
+            //console.log("new widget");
+            //console.log(newWidget);
             return $http.put("/api/widget/"+widgetId, newWidget);
 
         }

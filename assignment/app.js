@@ -4,9 +4,13 @@
 
 
 module.exports = function(app) {
-    require("./services/user.service.server.js")(app);
-    require("./services/website.service.server.js")(app);
-    require("./services/page.service.server.js")(app);
-    require("./services/widget.service.server.js")(app);
-    //console.log("loaded app js");
+
+    var models = require('./model/models.server')();
+    //var websiteModel = require('./model/website/website.model.server')();
+    //console.log("in app ");
+    //console.log(UserModel);
+    require('./services/user.service.server')(app, models.userModel);
+    require('./services/website.service.server')(app, models.websiteModel);
+    require("./services/page.service.server.js")(app, models.pageModel);
+    require("./services/widget.service.server.js")(app, models.widgetModel);
 }

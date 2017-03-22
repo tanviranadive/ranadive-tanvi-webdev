@@ -1,0 +1,25 @@
+<div ng-show="model.updateerror"
+     class="alert alert-warning text-center"
+     role="alert">
+    {{model.updateerror}}
+</div>
+
+Text
+<input ng-model="model.widget.text"
+       class="form-control"/>
+Rows
+<input ng-model="model.widget.rows"
+       class="form-control"
+       type="number"/>
+Placeholder
+<input ng-model="model.widget.placeholder"
+       class="form-control"/>
+<div class="checkbox">
+    <label>
+        <input type="checkbox"
+               ng-model="model.widget.formatted"> Formatted
+    </label>
+</div>
+
+<a ng-click="model.updateWid(model.widget)" class="btn btn-primary btn-block">Update</a>
+<a ng-click="model.deleteWidget(model.widget)" class="btn btn-danger btn-block">Delete</a>

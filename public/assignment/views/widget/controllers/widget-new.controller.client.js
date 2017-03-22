@@ -15,6 +15,7 @@
         vm.createImageWidget = createImageWidget;
         vm.createYoutubeWidget = createYoutubeWidget;
         vm.createHTMLWidget = createHTMLWidget;
+        vm.createTextWidget = createTextWidget;
         vm.create = create;
 
 
@@ -32,7 +33,8 @@
 
         function createHeaderWidget() {
 
-            var newWidget = {"_id": "", "widgetType": "HEADER", "pageId": "", "size": 4, "text": ""};
+            //var newWidget = {"_id": "", "widgetType": "HEADER", "pageId": "", "size": 4, "text": ""};
+            var newWidget = {"type": "HEADING", "size": 4, "text": ""};
             WidgetService
                 .createWidget(vm.pageId, newWidget)
 
@@ -46,7 +48,8 @@
 
         function createImageWidget() {
 
-            var newWidget = {"_id": "", "widgetType": "IMAGE", "pageId": "", "width": "100%", "url": "URL"};
+            //var newWidget = {"_id": "", "widgetType": "IMAGE", "pageId": "", "width": "100%", "url": "URL"};
+            var newWidget = {"type": "IMAGE", "pageId": "", "width": "100%", "url": "URL"};
             WidgetService
                 .createWidget(vm.pageId, newWidget)
                 .success(function (newWidget) {
@@ -57,7 +60,8 @@
 
         function createYoutubeWidget() {
 
-            var newWidget = {"_id": "", "widgetType": "YOUTUBE", "pageId": "", "width": "100%", "url": "URL"};
+            //var newWidget = {"_id": "", "widgetType": "YOUTUBE", "pageId": "", "width": "100%", "url": "URL"};
+            var newWidget = {"type": "YOUTUBE", "pageId": "", "width": "100%", "url": "URL"};
             WidgetService
                 .createWidget(vm.pageId, newWidget)
                 .success(function (newWidget) {
@@ -69,7 +73,8 @@
 
         function createHTMLWidget() {
 
-            var newWidget = {"_id": "", "widgetType": "HTML", "pageId": "", "size": 4, "text": ""};
+            //var newWidget = {"_id": "", "widgetType": "HTML", "pageId": "", "size": 4, "text": ""};
+            var newWidget = {"type": "HTML", "pageId": "", "size": 4, "text": ""};
             WidgetService
                 .createWidget(vm.pageId, newWidget)
 
@@ -77,6 +82,18 @@
                 vm.widget = newWidget;
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + vm.widget._id);
             });
+        }
+
+        function createTextWidget() {
+
+            var newWidget = {"type": "TEXT", "pageId": "","placeholder":"enter text", "text": "", "rows": 1, "formatted": false};
+            WidgetService
+                .createWidget(vm.pageId, newWidget)
+
+                .success(function (newWidget) {
+                    vm.widget = newWidget;
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + vm.widget._id);
+                });
         }
 
     }
