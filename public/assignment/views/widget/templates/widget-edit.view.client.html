@@ -1,0 +1,51 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="row container-fluid">
+            <div class="navbar-link navbar-text pull-left tr-header-left-margin">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+
+            <div class="navbar-text pull-right tr-header-right-margin">
+               <a href="" ng-click="model.updateWid(model.widget)">
+                   <span class="glyphicon glyphicon-ok"></span>
+               </a>
+           </div>
+
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    Edit Widget
+                </a>
+            </div>
+
+        </div>
+</nav>
+<div class="container-fluid">
+    <div ng-switch="model.widget.widgetType">
+        <div ng-switch-when="HEADER">
+            <ng-include src="'views/widget/templates/editors/widget-HEADER-editor.view.client.html'"></ng-include>
+        </div>
+        <div ng-switch-when="IMAGE">
+            <ng-include src="'views/widget/templates/editors/widget-IMAGE-editor.view.client.html'"></ng-include>
+        </div>
+        <div ng-switch-when="YOUTUBE">
+            <ng-include src="'views/widget/templates/editors/widget-YOUTUBE-editor.view.client.html'"></ng-include>
+        </div>
+        <div ng-switch-when="HTML">
+            <ng-include src="'views/widget/templates/editors/widget-HTML-editor.view.client.html'"></ng-include>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-footer navbar-text pull-right">
+                <a href="#/user/{{model.userId}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>

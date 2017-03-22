@@ -1,0 +1,84 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Profile</a>
+        </div>
+    </div>
+</nav>
+
+<div ng-show="model.error" class="alert alert-danger" >
+    {{model.error}}
+</div>
+
+<div class="alert alert-success" ng-show="model.message">
+    {{model.message}}
+</div>
+
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input ng-model="model.user.username"
+                   type="text"
+                   class="form-control"
+                   placeholder="username"
+                   id="username">
+
+            <label for="firstname">First Name</label>
+            <input ng-model="model.user.firstName"
+                   type="text"
+                   class="form-control"
+                   placeholder="First name"
+                   id="firstname">
+
+            <label for="lastname">Last Name</label>
+            <input ng-model="model.user.lastName"
+                   type="text"
+                   class="form-control"
+                   placeholder="Last name"
+                   id="lastname">
+
+            <label for="email">Email</label>
+            <input ng-model="model.user.email"
+                   type="email"
+                   class="form-control"
+                   placeholder="Email"
+                   id="email">
+
+            <label>Password</label>
+            <input class="form-control" type="password" placeholder="Password"/>
+
+            <a href="#/user/{{model.user._id}}/website" class="btn btn-primary btn-block">
+                Websites
+            </a>
+
+            <a ng-click="model.update(model.user)"
+               class="btn btn-primary btn-block tr-upload-button">
+                Update
+            </a>
+
+            <a ng-click="model.delete(model.user)"
+               class="btn btn-danger btn-block">
+                Delete
+            </a>
+
+            <a href="#/login" class="btn btn-danger btn-block">
+                Logout
+            </a>
+
+
+
+        </div>
+    </form>
+
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-footer navbar-text pull-right">
+                <a>
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+</div>

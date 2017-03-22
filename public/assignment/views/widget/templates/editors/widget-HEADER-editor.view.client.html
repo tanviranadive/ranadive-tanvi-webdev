@@ -1,0 +1,19 @@
+<h1>HEADER Editor</h1>
+
+<label>Text</label>
+<input ng-model="model.widget.text" class="form-control"/>
+
+<label>Size</label>
+<select ng-model="model.widget.size" class="form-control">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+</select>
+
+<div>
+    <a ng-click="model.updateWid(model.widget)" class="btn btn-primary btn-block">Update</a>
+    <a ng-click="model.deleteWidget(model.widget)" class="btn btn-danger btn-block">Delete</a>
+</div>

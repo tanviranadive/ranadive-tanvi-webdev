@@ -1,0 +1,112 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-sm-4 hidden-xs">
+            <div class="navbar-text pull-left tr-header-left-margin">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+            <div class="navbar-text pull-right tr-header-right-margin">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new">
+                    <span class="glyphicon glyphicon-plus "></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">Pages</a>
+            </div>
+        </div>
+
+
+        <div class="col-sm-8">
+
+            <div class="pull-left navbar-text visible-xs">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+            <div class="pull-right navbar-text">
+                <a href="" ng-click="model.pageUpdate(model.page)">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand tr-no-left-header-margin">
+                    Edit Page
+                </a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+
+<div class="row container-fluid">
+    <div class="col-sm-4 hidden-xs tr-left-pane tr-right-border">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="tr-header-left-margin">
+                        Name
+                        <a>
+                            <span class="glyphicon glyphicon-triangle-top"></span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li ng-repeat="page in model.pages" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-10">
+                        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">
+                            {{page.name}}
+                        </a>
+                    </div>
+                    <div class="col-xs-2">
+                        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}">
+                            <span class="glyphicon glyphicon-cog pull-right"></span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="col-xs-12 col-sm-8 tr-right-pane">
+        <form>
+            <div class="form-group">
+                <label for="editpagename">Name</label>
+                <input ng-model="model.page.name"
+                       type="text"
+                       class="form-control"
+                       id="editpagename"
+                       placeholder="Page Name">
+            </div>
+
+            <div class="form-group">
+                <label for="editpagedesc">Title</label>
+                <textarea ng-model="model.page.description"
+                          type="text"
+                          class="form-control"
+                          id="editpagedesc"
+                          placeholder="Page Title">
+                </textarea>
+            </div>
+
+            <a ng-click="model.deletePage(model.page)" class="btn btn-danger btn-block">Delete</a>
+
+        </form>
+    </div>
+</div>
+
+
+<div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-footer navbar-text pull-right">
+            <a href="#/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+</div>
