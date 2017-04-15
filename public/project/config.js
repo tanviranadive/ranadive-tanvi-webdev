@@ -58,6 +58,9 @@
             })
             .when("/user/:uid/movie/:movieId/review", {
                 templateUrl: "views/reviews/review.view.client.html",
+                resolve: {
+                    currentUser: checkLoggedIn
+                },
                 controller: "ReviewController",
                 controllerAs: "model"
             })

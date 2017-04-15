@@ -9,7 +9,7 @@
 
         <a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">
             <span class="glyphicon glyphicon-film pull-left"></span>
-            MoviePlex
+            MovieFlix
         </a>
     </div>
 
@@ -19,6 +19,16 @@
             <li><a href="#/user/{{model.currentUser._id}}/searchMovies">Search Movies</a></li>
         </ul>
         <div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search Users" ng-model="model.searchusername" name="q">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" ng-click="model.searchUsers(model.searchusername)">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -68,6 +78,9 @@
             <h4>FirstName: {{model.user.firstName}}</h4>
             <br>
             <h4>LastName: {{model.user.lastName}}</h4>
+            <br>
+            <a ng-show="model.currentUser.following.indexOf(model.user._id)<0 && model.currentUser._id != model.user._id"
+                class="btn btn-primary" ng-click="model.follow(model.user)">Follow</a>
 
         </div>
 
@@ -102,24 +115,6 @@
             <a href="#/logout" class="btn btn-danger btn-block">
                 Logout
             </a>
-
-            <!--<a ng-click="model.findUsers(model.currentUser._id)"
-               class="btn btn-primary btn-block tr-upload-button">
-                Find All Users
-            </a>-->
-
-            <div>
-                <ul>
-                    <li class="list-group"  ng-repeat="usr in model.searchedusers">
-                        <div ng-if="usr.username!=model.user.username">
-                        <i>{{usr.username}}</i>
-                        <span>
-                            <a ng-if="model.alreadyfollowing" class="btn btn-primary" ng-click="model.follow(usr)">Follow</a>
-                        </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
 
         </div>
     </form>

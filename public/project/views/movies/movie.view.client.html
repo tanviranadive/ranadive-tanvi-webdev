@@ -8,7 +8,7 @@
         </button>
         <a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">
             <span class="glyphicon glyphicon-film pull-left"></span>
-            MoviePlex
+            MovieFlix
         </a>
     </div>
 
@@ -20,7 +20,7 @@
         <div ng-show="model.userId">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="#/user/{{model.userId}}">Profile</a>
+                <a href="#/user/{{model.currentUser._id}}">My Profile</a>
             </li>
             <li><a href="#/logout">Logout</a></li>
         </ul>

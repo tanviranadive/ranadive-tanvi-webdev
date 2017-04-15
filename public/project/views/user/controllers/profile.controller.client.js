@@ -23,6 +23,7 @@
         //vm.showDetails = showDetails;
         vm.logout = logout;
         vm.menuItems = ['Profile', 'Movies', 'Followers', 'Following'];
+        vm.alreadyFollowing=[];
         //vm.activeMenu = vm.menuItems[0];
         vm.setActive = setActive;
 
@@ -90,40 +91,17 @@
 
         };
 
-        /*function searchMovie(keyword) {
-            //var url = "http://www.omdbapi.com/?s=" + movie.searchTitle;
-            console.log(keyword);
-            var url = "https://api.themoviedb.org/3/search/movie?api_key=d573ada41c460754609d532d4a47a349&language=en-US&query="+keyword+"";
-            $http.get(url)
-                .success(function(results) {
-                        //console.log(movie.searchTitle);
-                        console.log(results);
-                        vm.searchActivated=true;
-                        vm.results = results;
-
-                    }
-                );
-        }*/
-
         function getUserMovies(){
             console.log("in user movie");
             MovieUserService.findUserById(vm.userId)
                 .then(function(user) {
                     vm.user = user.data;
-                    console.log(vm.user);
-                    //var loggedInUser = vm.user;
-                    //console.log(loggedInUser);
                     vm.movies = [];
-                    console.log(vm.user.likes.length);
                     for (var i = 0; i < vm.user.likes.length; i++) {
-                        console.log(i);
                         MovieService.findMovie(vm.user.likes[i])
                             .then(function (movie) {
-                                console.log(movie);
                                 MovieService.findMovieById(movie.data.id)
                                     .then(function (response) {
-                                        console.log("response");
-                                        console.log(response.data);
                                         vm.movies.push(response.data);
                                         //console.log(vm.movies);
                                     })
@@ -137,15 +115,14 @@
 
         function getUserFollowing(){
             var loggedInUser = vm.user;
-            console.log("in controller getting following");
-            console.log(loggedInUser);
+            //console.log(loggedInUser);
             vm.followingusers=[];
             for(var i=0;i<loggedInUser.following.length;i++)
             {
                 MovieUserService
                     .findUserById(loggedInUser.following[i])
                     .then(function(response){
-                        console.log(response.data);
+                        //console.log(response.data);
                         vm.followingusers.push(response.data);
                     })
             }
@@ -154,15 +131,15 @@
 
         function getUserFollowers(){
             var loggedInUser = vm.user;
-            console.log("in controller getting followers");
-            console.log(loggedInUser);
+            //console.log("in controller getting followers");
+            //console.log(loggedInUser);
             vm.followers=[];
             for(var i=0;i<loggedInUser.followers.length;i++)
             {
                 MovieUserService
                     .findUserById(loggedInUser.followers[i])
                     .then(function(response){
-                        console.log(response.data);
+                        //console.log(response.data);
                         vm.followers.push(response.data);
                     })
             }
@@ -173,16 +150,14 @@
             MovieUserService
                 .findUserByUsername(keyword)
                 .success(function(users){
-                    console.log(users);
+                    //console.log(users);
                     if(users.length==0)
                     {
                         vm.error = "No such user found";
                     }
-
-                    // create config for search user by username display only main info
                     else {
-                        vm.users = users;
-                        $location.url('/user/'+vm.userId+"/searchUser/"+keyword);
+                        vm.searchedUser = users;
+                        $location.url('/user/'+vm.searchedUser._id);
                     }
                 })
                 .error(function(err){
@@ -194,13 +169,11 @@
             MovieUserService
                 .findUsers(userId)
                 .success(function(users){
-                    console.log(users);
+                    //console.log(users);
                     if(users.length==0)
                     {
                         vm.error = "No user found";
                     }
-
-                    // create config for search user by username display only main info
                     else {
                         vm.searchedusers = users;
                         //$location.url('/user/'+vm.userId+"/searchUser/"+keyword);
@@ -211,69 +184,25 @@
                 })
         }
 
-        function follow(followuser) {
+        function follow(inputuser) {
+            //console.log(vm.currentUser._id);
+            //console.log(inputuser);
+            var followuser={'userId': inputuser._id, 'username': inputuser.username};
             MovieUserService
-                .follow(vm.user._id, followuser)
+                .follow(vm.currentUser._id, followuser)
                 .then(function (response) {
                     var status = response.data;
-                    console.log(status);
+                    //console.log(status);
                     if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
-                        vm.alreadyFollowing = true;
+                        vm.alreadyFollowing=true;
                     }
                     else {
                         vm.alreadyFollowing = false;
                     }
+
+                    $location.url('/user/'+vm.user._id);
                 })
         }
-
-        /*function addMovie(movieId,movie) {
-            MovieUserService
-                .addMovie(vm.user._id, movieId, movie)
-                .then(function (response) {
-                    var status = response.data;
-                    console.log(status);
-                    if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
-                        vm.alreadyLiked = true;
-                    }
-                    else {
-                        vm.alreadyLiked = false;
-                    }
-                })
-        }*/
-
-        /*function addMovie(movieId,movie) {
-            MovieService
-                .likeMovie(vm.user._id, movieId, movie)
-                .then(function (response) {
-                    var status = response.data;
-                    console.log("inside profile controller");
-                    console.log(status);
-                    if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
-                        vm.alreadyLiked = true;
-                    }
-                    else {
-                        vm.alreadyLiked = false;
-                    }
-                })
-        }*/
-
-        /*function showDetails(movieId){
-            console.log("show details");
-
-                    $location.url('/user/'+vm.user._id+'/movie/'+movieId);
-        }
-
-        function upcomingMovies(){
-            console.log("in profile controller fetch upcoming movies");
-            MovieService
-                .getUpcomingMovies()
-                .then(function(response){
-                    console.log("res");
-                    console.log(response.data.results);
-                    vm.upcomingMovies = response.data.results;
-                })
-        }*/
-
 
 
     }

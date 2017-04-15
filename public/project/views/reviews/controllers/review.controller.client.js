@@ -10,10 +10,11 @@
         .module("MovieApp")
         .controller("ReviewController", ReviewController);
 
-    function ReviewController($routeParams, MovieUserService, ReviewService, MovieService, $location) {
+    function ReviewController($routeParams, MovieUserService, ReviewService, MovieService, currentUser, $location) {
         var vm = this;
         vm.userId = $routeParams.uid;
         vm.movieId = $routeParams.movieId;
+        vm.currentUser = currentUser;
 
         //vm.isCritic = isCritic;
 
@@ -24,7 +25,6 @@
                 //showDetails(vm.movieId);
                 getLoggedInUser(vm.userId);
                 getMovie(vm.movieId);
-            //vm.movie = MovieService.findMovieById(vm.movieId);
         }
         init();
 
@@ -32,12 +32,12 @@
             MovieUserService
                 .findUserById(userId)
                 .success(function (response) {
-                    console.log(response);
+                    //console.log(response);
                     vm.user = response;
                     vm.username = response.username;
                 })
                 .error(function(err){
-                    console.log(err);
+                    //console.log(err);
                 })
         }
 
@@ -45,26 +45,26 @@
             MovieService
                 .findMovieById(movieId)
                 .success(function (response) {
-                    console.log(response);
+                    //console.log(response);
                     vm.movie = response;
                 })
                 .error(function(err){
-                    console.log(err);
+                    //console.log(err);
                 })
         }
 
 
         function submitReview(review){
-            console.log("in review controller submit");
-            console.log(vm.movie);
+            //console.log("in review controller submit");
+            //console.log(vm.movie);
             review.movie = {movieId: vm.movieId, title: vm.movie.title}
             //review.movieId = vm.movie.id;
             review.user = {userId: vm.user._id, username: vm.user.username};
-            console.log(review);
+            //console.log(review);
             ReviewService
                 .submitReview(vm.userId, vm.movieId, review)
                 .success(function(response){
-                    console.log(response);
+                    //console.log(response);
                     vm.reviewSubmitted = true;
                     vm.message = "Review Submitted successfully";
 

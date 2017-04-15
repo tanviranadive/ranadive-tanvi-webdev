@@ -1,34 +1,18 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="row container-fluid">
+    <a class="navbar-brand" href="#/search">
+        <span class="glyphicon glyphicon-film pull-left"></span>
+        MovieFlix
+    </a>
 
-        <div class="col-sm-8">
-            <div class="row container-fluid">
-                <div class="col-sm-1">
-                    <div class="navbar-text pull-left">
-                        <a href="#/search">
-                            <span class="glyphicon glyphicon-chevron-left tr-no-left-header-margin"></span>
-                        </a>
-                    </div>
-                </div>
+    <!--<div ng-hide="!model.user">
+        <a class="navbar-brand ">Hello, {{model.user.username}}</a>
+        <a href="#/user/{{model.user._id}}" class="navbar-brand ">Profile</a>
+    </div>-->
 
-                <div class="col-sm-7">
-                    <a class="navbar-brand">Home</a>
-                    <a class="navbar-brand">Search Movies</a>
-                </div>
-            </div>
-        </div>
+    <a href="#/register" class="navbar-brand pull-right">Register</a>
+    <a href="#/login" class="navbar-brand pull-right">Login</a>
 
-        <div class="col-sm-4">
-            <div ng-hide="!model.user">
-                <a class="navbar-brand ">Hello, {{model.user.username}}</a>
-                <a href="#/user/{{model.user._id}}" class="navbar-brand ">Profile</a>
-            </div>
-            <div ng-hide="model.user">
-                <a href="#/login" class="navbar-brand ">Login</a>
-                <a href="#/register" class="navbar-brand ">Register</a>
-            </div>
-        </div>
-    </div>
+
 </nav>
 
 <div class="container tr-body-register-margin">

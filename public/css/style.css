@@ -227,10 +227,44 @@ body{
     margin-left: 100px;
     margin-right: 100px;
 }
+.thumbnail{
+    margin-left: 5px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
 
 .tr-search-results{
     color:black;
 }
+.tr-search-results .thumbnail{
+    flex-wrap: wrap;
+}
+
+.tr-search-results img{
+    width: 100%;
+    margin-left: 0px;
+    //margin-right: 5px;
+    padding-left: 0px;
+    height: 278px;
+    flex-wrap: wrap;
+    align: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+    padding-bottom: 5px;
+}
+
+.tr-search-results .card-title a{
+    width: 100%;
+    margin-left: 0px;
+//margin-right: 5px;
+    padding-left: 0px;
+    height: 278px;
+    flex-wrap: wrap;
+    text-align: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
 .tr-admin-button{
     color:white; !important;
 }
@@ -255,10 +289,6 @@ body{
     opacity: 0.98;
 }
 
-.thumbnail{
-    margin-left: 5px;
-    margin-bottom: 5px;
-}
 
 #tr-profile-btn{
     color: white;
@@ -305,3 +335,15 @@ body{
     cursor: pointer;
 }
 
+.tr-thumbnail{
+    background-color: #2e2e2e;
+}
+
+.tr-thumbnail img{
+    padding-bottom: 5px;
+}
+#tr-thumbnail-title a{
+    padding-bottom: 5px;
+    font-size: medium;
+    color:white;
+}

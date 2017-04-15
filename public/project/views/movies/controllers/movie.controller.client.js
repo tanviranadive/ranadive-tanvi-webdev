@@ -10,10 +10,11 @@
         .module("MovieApp")
         .controller("MovieController", MovieController);
 
-    function MovieController($routeParams, MovieService, MovieUserService, ReviewService, $location) {
+    function MovieController($routeParams, MovieService, MovieUserService, ReviewService, currentUser, $location) {
         var vm = this;
         vm.userId = $routeParams.uid;
         vm.movieId = $routeParams.movieId;
+        vm.currentUser = currentUser;
         vm.writeReview = writeReview;
         vm.follow = follow;
 
