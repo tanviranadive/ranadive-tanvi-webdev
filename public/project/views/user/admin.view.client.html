@@ -1,40 +1,13 @@
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-collapse ">
-    <div class="row container-fluid">
+            <a href="#/admin" class="navbar-brand pull-left">
+                <span class="glyphicon glyphicon-film"></span>
+                MoviePlex
+            </a>
+    <a href="#/logout" class="navbar-brand pull-right">
+        <span class="glyphicon glyphicon-off"></span>
+    </a>
+            <a class="navbar-brand btn btn-primary tr-admin-button pull-right">Admin</a>
 
-        <div class="col-sm-8">
-            <a class="navbar-brand">Home</a>
-            <a class="navbar-brand">About</a>
-            <a href="#/user/{{model.user._id}}/searchMovies" class="navbar-brand">Search Movies</a>
-            <a class="navbar-text btn btn-primary tr-admin-button">Admin</a>
-            <!--<form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input ng-model="model.keyword" type="text" class="form-control" placeholder="Search Movies" name="q">
-                    <div class="input-group-btn">
-                        <a class="btn btn-default" ng-click="model.searchMovie(model.keyword)" type="submit">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </a>
-                    </div>
-                </div>
-            </form>-->
-        </div>
-
-        <div class="col-sm-4">
-            <a>Hello, {{model.user.username}}</a></li>
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Profile
-                    <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">HTML</a></li>
-                    <li><a href="#">CSS</a></li>
-                    <li><a href="#">JavaScript</a></li>
-                    <li><a href="#">JavaScript</a></li>
-                    <li><a href="#">JavaScript</a></li>
-                    <li><a href="#">JavaScript</a></li>
-                    <li><a href="#">JavaScript</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </nav>
 
 <div ng-show="model.error" class="alert alert-danger" >
@@ -54,10 +27,10 @@
                     <h2 class="panel-title">Required links</h2>
                 </div>
                 <ul class="list-group">
-                    <li ng-class="{active : activeMenu == 'Review Requests'}"  class="list-group-item">
+                    <li ng-class="{active : activeMenu == 'Review Requests'}"  class="list-group-item tr-admin-panel">
                         <a ng-click="model.setActive('Review Requests')">Review Requests</a>
                     </li>
-                    <li ng-class="{active: activeMenu == 'Users'}" class="list-group-item">
+                    <li ng-class="{active: activeMenu == 'Users'}" class="list-group-item tr-admin-panel">
                         <a ng-click="model.setActive('Users'); model.findAllUsers()">Users</a>
                     </li>
                 </ul>
@@ -85,9 +58,10 @@
     </div>
 
     <div class="col-xs-7" ng-show="model.activeMenu == 'Users'">
+        <h2><u>Users</u></h2>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="person in model.users">
-                <a href="#">{{person.username}}</a>
+                <a>{{person.username}}</a>
                 <a class="btn btn-primary" ng-show="person.roles=='critic'" ng-click="model.demoteUser(person)">
                     Demote
                 </a>

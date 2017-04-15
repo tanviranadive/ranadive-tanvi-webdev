@@ -35,7 +35,7 @@
                         $location.url('/user/'+user._id);
                     }
                 }, function (err) {
-                    vm.error = err;
+                    vm.error = "Username/Password not found";
                 });
         }
     }

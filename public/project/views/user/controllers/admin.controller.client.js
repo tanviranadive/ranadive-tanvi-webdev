@@ -16,6 +16,7 @@
         vm.declineReview = declineReview;
         vm.findAllUsers = findAllUsers;
         vm.remove = remove;
+        vm.logout = logout;
         vm.user = adminUser;
         console.log("controller");
         console.log(adminUser);
@@ -43,6 +44,14 @@
             MovieUserService
                 .demoteUser(user)
                 .then(findAllUsers);
+        }
+
+        function logout(){
+            MovieUserService
+                .logout()
+                .then(function(){
+                    $location.url('/login');
+                })
         }
 
         function deleteUser(user) {

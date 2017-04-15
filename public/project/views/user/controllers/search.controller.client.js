@@ -58,10 +58,13 @@
                     console.log("inside search controller");
                     console.log(status);
                     if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
-                        vm.alreadyLiked = true;
+                        vm.message = "Movie added to watchlist";
+                    }
+                    else if ((status.n == 1 || status.nModified == 0) && status.ok == 1) {
+                        vm.message = "Movie already added to watchlist";
                     }
                     else {
-                        vm.alreadyLiked = false;
+                        vm.err = "could not add movie to watchlist";
                     }
                 })
         }
