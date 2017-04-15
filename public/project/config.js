@@ -103,7 +103,12 @@
             })
 
             .when("/", {
-                templateUrl: "views/user/search.view.client.html"
+                templateUrl: "views/user/search.view.client.html",
+                resolve: {
+                    currentUser: checkLoggedInUser
+                },
+                controller: "SearchController",
+                controllerAs: "model"
             })
             .otherwise({
                 templateUrl: "views/user/search.view.client.html"
