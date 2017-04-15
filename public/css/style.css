@@ -180,3 +180,116 @@ a:-webkit-any-link{
 .tr-widgets{
     margin-bottom:5px;
 }
+
+body{
+    margin-top: 60px;
+    //background: #524f5c;
+//opacity: 100;
+}
+
+.tr-upperbackground
+{
+    margin-bottom: 20px;
+//background: linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.2), rgba(0,0,0,.2)),url("lights_events.jpg");
+
+//background-size: cover;
+}
+
+.tr-search-field{
+    //color: #F0F0F0;
+    color: #3f3f3f;
+    text-align:center;
+}
+
+.tr-left-justify{
+    text-align: left;
+}
+
+.form-control{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.tr-btn
+{
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
+.tr-input-field{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.tr-search-results{
+    color:black;
+}
+.tr-admin-button{
+    color:white; !important;
+}
+
+.tr-profile-sidebar a{
+    color: #acacac; !important;
+}
+
+.tr-profile-sidebar a:hover{
+    color: white; !important;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.tr-profile-sidebar .list-group-item{
+    background-color: #3f3f3f;
+    opacity: 0.98;
+}
+
+.tr-profile-sidebar .active{
+    background-color: white;
+    opacity: 0.98;
+}
+
+.thumbnail{
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+#tr-profile-btn{
+    color: white;
+}
+
+.card{
+    background-color: #524f5c;
+    border-radius: 10px;
+    //padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+    //overflow: auto;
+    //max-height:300px;
+    color: white;
+}
+
+.card .card-img{
+    padding-top: 2px;
+    border-radius: 5px;
+    border-color: black;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-top:0px;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    margin-right:0px;
+    width : 100%;
+    //height: 300px;
+
+}
+
+.card a{
+    color: whitesmoke;
+}
+
+.card a:hover{
+    color: white;
+}
+

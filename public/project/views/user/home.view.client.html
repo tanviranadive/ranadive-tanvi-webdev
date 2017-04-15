@@ -1,0 +1,66 @@
+<div class="container-fluid tr-upperbackground">
+    <div class=".bg-overlay">
+        <div class="tr-search-field">
+            <h1>Search</h1>
+
+            <div class="row tr-input-field tr-search-field">
+                <!--<div class="col-sm-6 col-xs-12">
+                <input ng-model="event.eventType" class = "form-control" placeholder="type"/>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+            <input ng-model="event.location" class = "form-control" placeholder="location"/>
+                </div>-->
+                <div>
+                    <input ng-model="keyword" class = "form-control" placeholder="keyword"/>
+                </div>
+                <div class="row container-fluid tr-search-field">
+                    <div class="col-xs-4"></div>
+                    <div class=" col-xs-4">
+                        <!--<a class="btn btn-primary tr-btn" ng-click="model.search(event)">Search</a>-->
+                        <a class="btn btn-primary tr-btn" ng-click="model.searchMovie(keyword)">Search</a>
+                    </div>
+                    <div class="col-xs-4"></div>
+                </div>
+                <br>
+                <br>
+            </div>
+            <div>
+                <h2>Search Results</h2>
+                <!--<li class="list-group-item" ng-repeat="event in model.results.event">-->
+                <li class="list-group-item tr-search-results" ng-repeat="movie in model.results.results">
+                    <div class = "row container-fluid">
+                        <!--<div class="col-xs-8" style="margin-left: 0px; padding-left: 0px;">-->
+                        <div class="col-sm-3 col-xs-8" style="margin-left: 0px; padding-left: 0px;">
+                            <img ng-src="http://image.tmdb.org/t/p/w92/{{movie.poster_path}}" style="margin-left: 5px;margin-bottom: 5px;">
+                        </div>
+                        <!--<div class="navbar-text pull-left">
+                        <p>{{event.title}}</p>-->
+                        <div class="col-sm-6 col-xs-8 tr-left-justify">
+                            <p>{{movie.title}}</p>
+                            <p>{{movie.release_date}}</p>
+                            <a ng-click="model.addMovie(movie.id)" href="#" ng-hide="!model.user">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                Add to watchlist
+                            </a>
+                        </div>
+                        <div class="col-sm-3 col-xs-8">
+                            <div class="navbar-link navbar-text pull-left">
+                                <div>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    Rating : {{movie.vote_average}}/10
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="row container-fluid">
+                        <img ng-src="{{event.image.thumb.url}}" style="margin-left: 5px;margin-bottom: 5px;">
+
+                            </div>-->
+                    <!--<div class="row container-fluid" style="margin-top: 5px;">-->
+                    <!--<a href="{{event.url}}">{{event.url}}</a>-->
+
+                </li>
+
+            </div>
+        </div>
+    </div>

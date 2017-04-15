@@ -1,0 +1,126 @@
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-collapse ">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href="#/user/{{model.currentUser._id}}/searchMovies">Home</a></li>
+            <li><a href="#/user/{{model.currentUser._id}}/searchMovies">Search Movies</a></li>
+        </ul>
+        <div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div ng-show="model.userId">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#/user/{{model.userId}}">Profile</a>
+            </li>
+            <li><a href="#/logout">Logout</a></li>
+        </ul>
+        </div>
+
+        <div ng-hide="model.userId">
+            <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/login" class="navbar-brand ">Login</a></li>
+            <li><a href="#/register" class="navbar-brand ">Register</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<!--<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-sm-8">
+            <a class="navbar-brand">Home</a>
+            <a class="navbar-brand">About</a>
+            <a class="navbar-brand">Search Movies</a>
+        </div>
+
+        <div class="col-sm-4">
+            <div ng-hide="!model.userId">
+                <a class="navbar-brand ">Hello, {{model.username}}</a>
+                <a href="#/user/{{model.userId}}" class="navbar-brand ">Profile</a>
+                <a href="#/logout">
+                    <span class="glyphicon glyphicon-off"></span>
+                </a>
+            </div>
+            <div ng-hide="model.userId">
+                <a href="#/login" class="navbar-brand ">Login</a>
+                <a href="#/register" class="navbar-brand ">Register</a>
+            </div>
+        </div>
+    </div>
+</nav>-->
+
+<div class="container-fluid">
+    <div class=".bg-overlay">
+        <div>
+            <h2>{{model.movie.title}}</h2>
+            <div class="row">
+                <div class="col-sm-4">
+                    <img ng-src="https://image.tmdb.org/t/p/w185/{{model.movie.poster_path}}">
+                </div>
+                <div class="col-sm-8">
+                    <i>Rating: {{model.movie.vote_average}}/10</i>
+                    <br><br>
+                    <i>Release Date: {{model.movie.release_date}}</i>
+                    <br>
+                    <br>
+                    <i>Runtime: {{model.movie.runtime}} mins</i>
+                    <br>
+                    <br>
+                    <a class="btn btn-primary" ng-click="model.writeReview()">
+                        Write Review
+                    </a>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <div>
+                <u>Plot Summary :</u>
+                <br>
+                <br>
+                <p>{{model.movie.overview}}</p>
+            </div>
+
+            <div>
+                <h3>Reviews:</h3>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="review in model.reviews.data" ng-show="review.isCritic">
+                        <div id="userReviews">
+                            <span>
+                            <a href="#/user/{{review.user.userId}}">{{review.user.username}}</a>
+                            <a ng-if="model.user.following.indexOf(review.user.userId) >= 0" class = "btn btn-sm tr-upload-button">Already Following</a>
+                            <a ng-if="model.user.following.indexOf(review.user.userId) < 0"
+                               ng-click="model.follow(review.user)" class = "btn btn-primary btn-sm"
+                               ng-show="model.userId!=review.user.userId">Follow</a>
+                        </span>
+                        </div>
+                        <br>
+                        <div>
+                        <p>{{review.comment}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

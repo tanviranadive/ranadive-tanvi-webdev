@@ -1,0 +1,60 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="row container-fluid">
+
+        <div class="col-sm-8">
+            <div class="row container-fluid">
+                <div class="col-sm-1">
+                    <div class="navbar-text pull-left">
+                    <a href="#/user/{{model.userId}}/movie/{{model.movieId}}">
+                        <span class="glyphicon glyphicon-chevron-left tr-no-left-header-margin"></span>
+                    </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-7">
+                    <a class="navbar-brand">Home</a>
+                    <a class="navbar-brand">Search Movies</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div ng-hide="!model.userId">
+                <a class="navbar-brand ">Hello, {{model.username}}</a>
+                <a href="#/user/{{model.userId}}" class="navbar-brand ">Profile</a>
+            </div>
+            <div ng-hide="model.userId">
+                <a href="#/login" class="navbar-brand ">Login</a>
+                <a href="#/register" class="navbar-brand ">Register</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class=".bg-overlay">
+        <div ng-show="model.error" class="alert alert-danger" >
+            {{model.error}}
+        </div>
+
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+
+        <div class="col-sm-4 col-xs-12">
+            <h2><u>{{model.movie.title}}</u></h2>
+            <br>
+            <img ng-src="https://image.tmdb.org/t/p/w185/{{model.movie.poster_path}}">
+        </div>
+        <div ng-hide="model.reviewSubmitted" class="col-sm-8 col-xs-12">
+            <h3>Write review for this movie</h3>
+            <div class="form-group">
+            <br>
+            <textarea class="form-control" ng-model="review.description" rows="10" cols="80" placeholder="Write Review"></textarea>
+            <br>
+            <br>
+            <button class="btn btn-primary" ng-click="model.submitReview(review)">Submit Review</button>
+            </div>
+    </div>
+    </div>
+</div>

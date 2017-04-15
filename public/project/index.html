@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="MovieApp">
 <head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+
+    <script src="views/user/controllers/search.controller.client.js"></script>
+    <script src="views/user/controllers/login.controller.client.js"></script>
+    <script src="views/user/controllers/register.controller.client.js"></script>
+    <script src="views/user/controllers/profile.controller.client.js"></script>
+    <script src="views/events/controllers/event-list.controller.client.js"></script>
+    <script src="views/movies/controllers/movie.controller.client.js"></script>
+    <script src="views/user/controllers/admin.controller.client.js"></script>
+    <script src="views/reviews/controllers/review.controller.client.js"></script>
+
+    <script src="services/user.service.client.js"></script>
+    <script src="services/movie.service.client.js"></script>
+    <script src="services/review.service.client.js"></script>
+
     <meta charset="UTF-8">
-    <title>Project Home Page</title>
-</head>
+    <title>Web Dev Course Home Page</title>
 <body>
-    <h1>Project Home Page</h1>
+<div  ng-view>
+</div>
 </body>
 </html>

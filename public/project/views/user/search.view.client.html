@@ -1,0 +1,113 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+            <div  ng-show="model.currentUser!=null">
+                <a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">Home</a>
+            </div>
+            <div  ng-show="model.currentUser==null">
+                <a class="navbar-brand" href="#/search">Home</a>
+            </div>
+        </div>
+
+
+            <div ng-show="model.currentUser!=null">
+                <ul class="navbar navbar-right">
+                <li><a href="#/logout" class="pull-right">
+                        <span class="navbar-brand glyphicon glyphicon-off"></span>
+                    </a></li>
+            <li>
+                    <a href="#/user/{{model.currentUser._id}}" class="navbar-brand pull-right ">Profile</a>
+            </li>
+                </ul>
+            </div>
+
+            <div ng-show="model.currentUser==null">
+                <ul class="navbar navbar-right">
+                <li><a href="#/login" class="navbar-brand ">Login</a>
+            </li>
+            <li>
+                <a href="#/register" class="navbar-brand ">Register</a>
+            </li>
+            </ul>
+        </div>
+</nav>
+
+<div class="container-fluid tr-upperbackground">
+    <div class=".bg-overlay">
+        <div class="tr-search-field">
+            <h1>Search</h1>
+
+    <div class="row tr-input-field tr-search-field">
+        <div>
+            <input ng-model="keyword" class = "form-control" placeholder="keyword"/>
+        </div>
+        <div class="row container-fluid tr-search-field">
+        <div class="col-xs-4"></div>
+        <div class=" col-xs-4">
+    <!--<a class="btn btn-primary tr-btn" ng-click="model.search(event)">Search</a>-->
+            <a class="btn btn-primary tr-btn" ng-click="model.searchMovie(keyword)">Search</a>
+        </div>
+        <div class="col-xs-4"></div>
+        </div>
+        <br>
+        <br>
+    </div>
+
+        <div ng-show="!model.searchActivated">
+            <h2>Upcoming Releases</h2>
+
+                <div class="card-deck">
+                    <div class="col-sm-4 col-xs-12" ng-repeat="upcomingMovie in model.upcomingMovies">
+                        <div class="card card-inverse">
+                            <a href="#/user/{{model.currentUser._id}}/movie/{{upcomingMovie.id}}">
+                            <img alt="src" href="#/user/{{model.currentUser._id}}/movie/{{upcomingMovie.id}}" class="card-img" ng-src="https://image.tmdb.org/t/p/w185/{{upcomingMovie.poster_path}}">
+                            </a>
+                                <div class="card-title card-image-overlay">
+                            <a href="#/user/{{model.currentUser._id}}/movie/{{upcomingMovie.id}}">
+                                <h4>{{upcomingMovie.title}}</h4>
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+            <div ng-show="model.searchActivated">
+
+                <!--<li class="list-group-item" ng-repeat="event in model.results.event">-->
+            <li class="list-group-item tr-search-results" ng-repeat="movie in model.results.results">
+                    <div class = "row container-fluid">
+                        <!--<div class="col-xs-8" style="margin-left: 0px; padding-left: 0px;">-->
+                        <div class="col-sm-3 col-xs-8" style="margin-left: 0px; padding-left: 0px;">
+                            <img ng-src="http://image.tmdb.org/t/p/w92/{{movie.poster_path}}" style="margin-left: 5px;margin-bottom: 5px;">
+                        </div>
+                        <!--<div class="navbar-text pull-left">
+                        <p>{{event.title}}</p>-->
+                        <div class="col-sm-6 col-xs-8 tr-left-justify">
+                            <a ng-click="model.showDetails(movie.id)">{{movie.title}}</a>
+                            <p>{{movie.release_date}}</p>
+                            <a ng-click="model.addMovie(movie.id,movie)" ng-hide="!model.userId">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                Add to watchlist
+                            </a>
+                        </div>
+                        <div class="col-sm-3 col-xs-8">
+                        <div class="navbar-link navbar-text pull-left">
+                            <div>
+                                <span class="glyphicon glyphicon-star"></span>
+                                Rating : {{movie.vote_average}}/10
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+            <!--<div class="row container-fluid">
+                <img ng-src="{{event.image.thumb.url}}" style="margin-left: 5px;margin-bottom: 5px;">
+
+                    </div>-->
+                    <!--<div class="row container-fluid" style="margin-top: 5px;">-->
+                    <!--<a href="{{event.url}}">{{event.url}}</a>-->
+
+                </li>
+
+</div>
+</div>
+</div>
+</div>

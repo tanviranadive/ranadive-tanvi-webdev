@@ -1,0 +1,112 @@
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-collapse ">
+    <div class="row container-fluid">
+
+        <div class="col-sm-8">
+            <a class="navbar-brand">Home</a>
+            <a class="navbar-brand">About</a>
+            <a href="#/user/{{model.user._id}}/searchMovies" class="navbar-brand">Search Movies</a>
+            <a class="navbar-text btn btn-primary tr-admin-button">Admin</a>
+            <!--<form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input ng-model="model.keyword" type="text" class="form-control" placeholder="Search Movies" name="q">
+                    <div class="input-group-btn">
+                        <a class="btn btn-default" ng-click="model.searchMovie(model.keyword)" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>-->
+        </div>
+
+        <div class="col-sm-4">
+            <a>Hello, {{model.user.username}}</a></li>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Profile
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div ng-show="model.error" class="alert alert-danger" >
+    {{model.error}}
+</div>
+
+<div class="alert alert-success" ng-show="model.message">
+    {{model.message}}
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-5">
+
+            <div class="panel panel-default" id="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Required links</h2>
+                </div>
+                <ul class="list-group">
+                    <li ng-class="{active : activeMenu == 'Review Requests'}"  class="list-group-item">
+                        <a ng-click="model.setActive('Review Requests')">Review Requests</a>
+                    </li>
+                    <li ng-class="{active: activeMenu == 'Users'}" class="list-group-item">
+                        <a ng-click="model.setActive('Users'); model.findAllUsers()">Users</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    <div class="col-xs-7" ng-show="model.activeMenu == 'Review Requests'">
+        <ul>
+          <li class="list-group"  ng-repeat="request in model.reviewrequests.data">
+              <div ng-if="request.userId!=model.user._id">
+                  <p>
+                  Review by:
+                  <a>{{request.user.username}}</a>
+                  </p>
+                  <p> Comment:
+                 <i style="color:black">{{request.comment}}</i>
+                  </p>
+                    <span>
+                        <a ng-show="!model.request.isCritc" ng-click="model.approveCritic(request)" class="btn btn-primary">Approve</a>
+                        <a class="btn btn-danger" ng-click="model.declineReview(request)">Decline</a>
+                    </span>
+              </div>
+          </li>
+        </ul>
+    </div>
+
+    <div class="col-xs-7" ng-show="model.activeMenu == 'Users'">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="person in model.users">
+                <a href="#">{{person.username}}</a>
+                <a class="btn btn-primary" ng-show="person.roles=='critic'" ng-click="model.demoteUser(person)">
+                    Demote
+                </a>
+                <a class="btn btn-danger" ng-click="model.remove(person)">Delete</a>
+            </li>
+        </ul>
+    </div>
+
+    </div>
+</div>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-footer navbar-text pull-right">
+            <a>
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+</div>

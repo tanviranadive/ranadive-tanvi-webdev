@@ -1,0 +1,119 @@
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-collapse ">
+    <div class="row container-fluid">
+
+        <div class="col-sm-8">
+            <a class="navbar-brand">Home</a>
+            <a class="navbar-brand">About</a>
+            <a href="#/search" class="navbar-brand">Search Movies</a>
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input ng-model="model.user.keyword" type="text" class="form-control" placeholder="Search Username" name="q">
+                    <div class="input-group-btn">
+                        <a class="btn btn-default" ng-click="model.searchUsers(model.user.keyword)" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-4">
+            <a>Hello, {{model.user.username}}</a></li>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Profile
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div ng-show="model.error" class="alert alert-danger" >
+    {{model.error}}
+</div>
+
+<div class="alert alert-success" ng-show="model.message">
+    {{model.message}}
+</div>
+
+<div class="container row">
+
+    <div id="sidebar-wrapper" class="col-sm-3">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Start Bootstrap
+                </a>
+            </li>
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li>
+                <a href="#">Shortcuts</a>
+            </li>
+            <li>
+                <a href="#">Overview</a>
+            </li>
+            <li>
+                <a href="#">Events</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Services</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-sm-9">
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input ng-model="model.searchuser.username"
+                       type="text"
+                       class="form-control"
+                       placeholder="username"
+                       id="username">
+
+                <label for="firstname">First Name</label>
+                <input ng-model="model.searchuser.firstName"
+                       type="text"
+                       class="form-control"
+                       placeholder="First name"
+                       id="firstname">
+
+                <label for="lastname">Last Name</label>
+                <input ng-model="model.searchuser.lastName"
+                       type="text"
+                       class="form-control"
+                       placeholder="Last name"
+                       id="lastname">
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-footer navbar-text pull-right">
+            <a>
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+</div>
