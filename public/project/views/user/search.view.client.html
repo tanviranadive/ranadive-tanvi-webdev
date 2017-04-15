@@ -71,7 +71,7 @@
 
             <div ng-show="model.searchActivated">
 
-                <div class="col-sm-4 col-xs-12" ng-repeat="movie in model.results.results">
+                <div class="col-md-3 col-sm-4 col-xs-12" ng-repeat="movie in model.results.results">
                     <div class="row thumbnail tr-search-results">
                         <a class="navbar-brand pull-right" ng-if="!model.alreadyLiked" ng-click="model.addMovie(movie.id,movie)" ng-hide="!model.userId">
                             <span class="glyphicon glyphicon-plus"></span>
