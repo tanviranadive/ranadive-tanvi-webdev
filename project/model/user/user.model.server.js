@@ -51,7 +51,7 @@ module.exports = function () {
 
 
     function findUserByFacebookId(facebookId) {
-        return UserModel.findOne({'facebook.id': facebookId});
+        return MovieUserModel.findOne({'facebook.id': facebookId});
     }
 
     //UserModel.create("alice","alice","Alice","Wonder","","",[], Date.now());
