@@ -50,22 +50,20 @@
         <div ng-show="!model.searchActivated">
             <h2>Upcoming Releases</h2>
 
-            <div class="card-deck">
-                <div class="col-sm-4 col-xs-12" ng-repeat="upcomingMovie in model.upcomingMovies">
+                <div class="col-md-4 col-sm-6 col-xs-12 placeholder" ng-repeat="upcomingMovie in model.upcomingMovies">
                     <div class="thumbnail tr-thumbnail">
                         <a href="#/user/{{model.currentUser._id}}/movie/{{upcomingMovie.id}}">
                             <img alt="src" href="#/user/{{model.currentUser._id}}/movie/{{upcomingMovie.id}}" class="card-img"
-                                 ng-src="https://image.tmdb.org/t/p/w185/{{upcomingMovie.poster_path}}"
+                                 ng-src="https://image.tmdb.org/t/p/w500/{{upcomingMovie.poster_path}}"
                                  src="../../../uploads/no-image.png">
                         </a>
-                        <div class="card-title card-image-overlay" id="tr-thumbnail-title">
+                        <div class="caption" id="tr-thumbnail-title">
                             <a href="#/user/{{model.currentUser._id}}/movie/{{upcomingMovie.id}}">
-                                {{upcomingMovie.title}}
+                                {{upcomingMovie.title | limitTo:30}}
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>
 
         </div>
 
@@ -80,7 +78,7 @@
                             <img ng-if="!movie.poster_path" ng-src="../../../uploads/no-image.png" ng-click="model.showDetails(movie.id)">
 
 
-                        <div class="card-title">
+                        <div class="caption">
                             <a ng-click="model.showDetails(movie.id)">
                                 <h4>{{movie.title}}</h4>
                             </a>

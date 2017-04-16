@@ -22,6 +22,7 @@ module.exports = function () {
         demoteUser: demoteUser,
         deleteUser:deleteUser,
         removeUser: removeUser,
+        findUserByFacebookId: findUserByFacebookId,
         setModel: setModel
     };
 
@@ -46,6 +47,11 @@ module.exports = function () {
         console.log("remove user model");
         console.log(userId);
         return MovieUserModel.remove({_id: userId});
+    }
+
+
+    function findUserByFacebookId(facebookId) {
+        return UserModel.findOne({'facebook.id': facebookId});
     }
 
     //UserModel.create("alice","alice","Alice","Wonder","","",[], Date.now());

@@ -348,3 +348,17 @@ body{
     font-size: medium;
     color:white;
 }
+
+.label-as-badge{
+    border-radius: 1em;
+}
+
+h4.smallheader {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.placeholder {
+    margin-bottom: 20px;
+}

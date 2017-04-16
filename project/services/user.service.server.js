@@ -6,6 +6,7 @@ module.exports = function(app, movieuserModel) {
     var passport      = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
     //var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+    var FacebookStrategy = require('passport-facebook').Strategy;
     passport.use(new LocalStrategy(localStrategy));
 
     passport.serializeUser(serializeUser);
@@ -29,6 +30,111 @@ module.exports = function(app, movieuserModel) {
     app.delete('/api/project/user/:userId', deleteUser);
     app.delete('/api/project/user/:userId/remove/:removeUserId', removeUser);
     app.post("/api/user", createUser);
+
+    app.get('/project/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+    app.get('/google/oauth/callback',
+        passport.authenticate('google', {
+            successRedirect: '#!/profile',
+            failureRedirect: '#!/login'
+        }));
+
+    app.get('/auth/facebook',passport.authenticate('facebook',{ scope : 'email'}));
+    app.get('/auth/facebook/callback',passport.authenticate('facebook', {
+        failureRedirect: '/project/#/login'
+    }), function(req, res){
+        var url = '/project/#/user/' + req.user._id.toString();
+        res.redirect(url);
+    });
+
+    console.log(process.env.FACEBOOK_CLIENT_ID);
+
+    var facebookConfig = {
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL:process.env.FACEBOOK_CALLBACK_URL,
+        profileFields: ['id','displayName', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
+    };
+
+
+    var googleConfig = {
+        clientID     : process.env.GOOGLE_CLIENT_ID_SPRING_2017,
+        clientSecret : process.env.GOOGLE_CLIENT_SECRET_SPRING_2017,
+        callbackURL  : process.env.GOOGLE_CALLBACK_URL_SPRING_2017
+    };
+
+    //passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
+    function googleStrategy(token, refreshToken, profile, done) {
+        console.log(profile.id);
+        movieuserModel
+            .findUserByGoogleId(profile.id)
+            .then(function (user) {
+                console.log(user);
+                if(user) {
+                    console.log(111);
+                    done(null, user);
+                } else {
+                    console.log(222);
+                    var user = {
+                        username: profile.emails[0].value,
+                        photo: profile.photos[0].value,
+                        firstName: profile.name.givenName,
+                        lastName:  profile.name.familyName,
+                        email:     profile.emails[0].value,
+                        google: {
+                            id:    profile.id
+                        }
+                    };
+                    return movieuserModel.createUser(user);
+                }
+            }, function (err) {
+                console.log(err);
+                done(err, null);
+            })
+            .then(function (user) {
+                done(null, user);
+            }, function (err) {
+                console.log(err);
+                done(err, null);
+            });
+    }
+
+
+    function facebookStrategy(token, refreshToken, profile, done) {
+        movieuserModel
+            .findUserByFacebookId(profile.id)
+            .then(function(user) {
+                    if(user) {
+                        // If User exists
+                        return done(null, user);
+                    } else {
+                        var names = profile.displayName.split(" ");
+                        var newFacebookUser = {
+                            firstName:  names[0],
+                            lastName:  names[1],
+                            facebook: {
+                                id:    profile.id,
+                                token: token
+                            },
+                            email: profile.emails[0].value,
+                            // username is a mandatory field for creating user
+                            // facebook does not give username
+                            username: profile.emails[0].value
+                        };
+                        mvovieuserModel
+                            .createUser(newFacebookUser)
+                            .then(function (user) {
+                                return done(null, user);
+                            });
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                });
+    }
+
+
 
 
     function localStrategy(username, password, done) {

@@ -20,6 +20,7 @@ module.exports = function () {
         followers: [String],
         roles: {type: String, default: "user", enum: ["user", "admin", "critic"]},
         reviews: [String],
+        facebook: {id:String, token: String},
         //movies: [{type: mongoose.Schema.Types.ObjectId, ref:'MovieModel'}],
         dateCreated: {type:Date, default: Date.now()}
     }, {collection: 'MovieAppUsers'});
