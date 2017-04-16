@@ -35,14 +35,10 @@
 
 
         function searchMovie(keyword) {
-            //var url = "http://www.omdbapi.com/?s=" + movie.searchTitle;
-            console.log(keyword);
             vm.searchActivated = true;
             var url = "https://api.themoviedb.org/3/search/movie?api_key=d573ada41c460754609d532d4a47a349&language=en-US&query="+keyword+"";
             $http.get(url)
                 .success(function(results) {
-                        //console.log(movie.searchTitle);
-                        console.log(results);
                         vm.searchActivated=true;
                         vm.results = results;
 
@@ -55,8 +51,6 @@
                 .likeMovie(vm.currentUser._id, movieId, movie)
                 .then(function (response) {
                     var status = response.data;
-                    console.log("inside search controller");
-                    console.log(status);
                     if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
                         vm.message = "Movie added to watchlist";
                     }
@@ -70,7 +64,6 @@
         }
 
         function showDetails(movieId){
-            console.log("show details");
 
             $location.url('/user/'+vm.userId+'/movie/'+movieId);
 
@@ -78,24 +71,19 @@
         }
 
         function upcomingMovies(){
-            console.log("in search controller fetch upcoming movies");
             MovieService
                 .getUpcomingMovies()
                 .then(function(response){
-                    console.log("res");
-                    console.log(response.data.results);
                     vm.upcomingMovies = response.data.results;
                 })
         }
 
 
         function searchMovieByKeyword(keyword){
-            console.log("in search movie controller");
             vm.searchActivated = true;
             MovieService
                 .searchMovieByKeyword(keyword)
                 .then(function(response){
-                    console.log(response.data);
                     vm.results = response.data;
                 })
         }
@@ -104,15 +92,10 @@
             MovieService
                 .getUpcomingMovies()
                 .then(function(response){
-                    console.log(response.data);
                     vm.upcoming = response.data;
                 })
         }
 
-        /*function renderSearchResults(results) {
-            vm.eventSearchResults = results.Search;
-            console.log(results.Search);
-        }*/
     }
 
 })();

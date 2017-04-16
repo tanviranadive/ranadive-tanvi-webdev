@@ -55,22 +55,16 @@
 
 
         function submitReview(review){
-            //console.log("in review controller submit");
-            //console.log(vm.movie);
             review.movie = {movieId: vm.movieId, title: vm.movie.title}
-            //review.movieId = vm.movie.id;
             review.user = {userId: vm.user._id, username: vm.user.username};
-            //console.log(review);
             ReviewService
                 .submitReview(vm.userId, vm.movieId, review)
                 .success(function(response){
-                    //console.log(response);
                     vm.reviewSubmitted = true;
                     vm.message = "Review Submitted successfully";
 
                 })
                 .error(function(err){
-                    console.log(err);
                     vm.reviewSubmitted = false;
                     vm.error = "Could not submit review";
                 })

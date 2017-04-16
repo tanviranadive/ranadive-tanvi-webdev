@@ -10,37 +10,31 @@ module.exports = function(app, movieModel) {
     app.get("/api/project/find/movie/:movieId", findMovie);
 
     function findMovieById(req, res) {
-        console.log("inside movie service server");
         var movieId = req.params.movieId;
         movieModel
             .findMovieById(movieId)
             .then(function(movie){
-                console.log("movie object");
-                console.log(movie);
                 res.json(movie);
             })
     }
 
     function findMovie(req, res){
-        console.log("find movie");
+
         var movieId = req.params.movieId;
         movieModel
             .findMovie(movieId)
             .then(function(response){
-                console.log(response);
                 res.json(response);
             })
     }
 
     function likeMovie(req, res){
-        console.log("inside like movie");
         var loggedInUserId = req.params.userId;
         var movieId = req.params.movieId;
         var movie = req.body;
         movieModel
             .likeMovie(loggedInUserId,movieId,movie)
             .then(function(response){
-                console.log("like movie response");
                 res.send(response);
             },function (err) {
             res.status(400).send(err);

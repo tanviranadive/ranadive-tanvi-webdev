@@ -18,15 +18,13 @@
         vm.remove = remove;
         vm.logout = logout;
         vm.user = adminUser;
-        console.log("controller");
-        console.log(adminUser);
 
         vm.menuItems = ['Review Requests', 'Users'];
         //vm.activeMenu = vm.menuItems[0];
         vm.setActive = setActive;
 
         function setActive(menuItem) {
-            console.log("set active called");
+            //console.log("set active called");
             vm.activeMenu = menuItem;
         }
 

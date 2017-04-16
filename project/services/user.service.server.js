@@ -12,8 +12,6 @@ module.exports = function(app, movieuserModel) {
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
-    //app.get("/api/user", findUserByCredentials);
-    //app.get("/api/user/:username", findUserByUsername);
     app.post('/api/project/login', passport.authenticate('local'), login);
     app.post('/api/project/logout', logout);
     app.get("/api/user", findUser);
@@ -52,6 +50,7 @@ module.exports = function(app, movieuserModel) {
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
         callbackURL:process.env.FACEBOOK_CALLBACK_URL,
+
         profileFields: ['id','displayName', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
     };
 
@@ -70,7 +69,6 @@ module.exports = function(app, movieuserModel) {
         movieuserModel
             .findUserByGoogleId(profile.id)
             .then(function (user) {
-                console.log(user);
                 if(user) {
                     console.log(111);
                     done(null, user);
@@ -89,13 +87,11 @@ module.exports = function(app, movieuserModel) {
                     return movieuserModel.createUser(user);
                 }
             }, function (err) {
-                console.log(err);
                 done(err, null);
             })
             .then(function (user) {
                 done(null, user);
             }, function (err) {
-                console.log(err);
                 done(err, null);
             });
     }
@@ -122,7 +118,7 @@ module.exports = function(app, movieuserModel) {
                             // facebook does not give username
                             username: profile.emails[0].value
                         };
-                        mvovieuserModel
+                        movieuserModel
                             .createUser(newFacebookUser)
                             .then(function (user) {
                                 return done(null, user);
@@ -138,21 +134,13 @@ module.exports = function(app, movieuserModel) {
 
 
     function localStrategy(username, password, done) {
-        console.log("in local strategy");
-        console.log(username);
-        console.log(password);
         movieuserModel
             .findUserByCredentials(username, password)
             .then(
                 function(user) {
-                    console.log('[0]');
-                    console.log(user);
                     if (!user) {
-                        console.log('[1]');
                         return done(null, false);
                     }
-                    console.log('[2]');
-                    console.log(user);
                     return done(null, user);
                 },
                 function(err) {
@@ -205,10 +193,8 @@ module.exports = function(app, movieuserModel) {
         movieuserModel
             .findUserByCredentials(username, password)
             .then(function(user){
-                console.log(user);
                 res.json(user[0]);
             },function (err) {
-                concole.log("in err");
                 res.sendStatus(404);
             });
     }
@@ -218,8 +204,6 @@ module.exports = function(app, movieuserModel) {
         movieuserModel
             .findUserById(userId)
             .then(function(user){
-                console.log("in user server service");
-                console.log(user);
                 res.json(user);
             });
     }
@@ -249,9 +233,6 @@ module.exports = function(app, movieuserModel) {
 
     function deleteUser(req, res) {
         var userId = req.params.userId;
-        //var user = req.body;
-        //console.log("user server req body");
-        //console.log(user);
         movieuserModel
             .deleteUser(userId)
             .then(function (response) {
@@ -264,10 +245,6 @@ module.exports = function(app, movieuserModel) {
     function removeUser(req, res) {
         var adminUserId = req.params.userId;
         var removeUserId = req.params.removeUserId;
-        //var user = req.body;
-        console.log("user server req body");
-        console.log(adminUserId);
-        console.log(removeUserId);
         movieuserModel
                   .removeUser(removeUserId)
                     .then(function (response) {
@@ -284,8 +261,6 @@ module.exports = function(app, movieuserModel) {
         movieuserModel
             .demoteUser(userId, user)
             .then(function(user) {
-                console.log("updated user afer demoting");
-                console.log(user);
                     res.json(user);
                 },
                 function (error) {
@@ -299,7 +274,6 @@ module.exports = function(app, movieuserModel) {
         movieuserModel
             .createUser(newUser)
             .then(function(user) {
-                //console.log(user);
                 res.json(user);
             }, function (error) {
                 res.sendStatus(500).send(error);
@@ -310,8 +284,6 @@ module.exports = function(app, movieuserModel) {
         var loggedInUserId = req.params.userId;
         var followUserId = req.params.followUserId;
         var followUser = req.body;
-        console.log("inside server service");
-        console.log(followUser);
         movieuserModel
             .following(loggedInUserId, followUserId)
             .then(
@@ -360,7 +332,6 @@ module.exports = function(app, movieuserModel) {
         movieuserModel
             .likeMovie(loggedInUserId,movieId,movie)
             .then(function(response){
-            console.log("like movie response");
             res.send(response);
         }),function (err) {
             res.status(400).send(err);
@@ -377,9 +348,7 @@ module.exports = function(app, movieuserModel) {
     }
 
     function login(req, res) {
-        console.log("[login]");
         var user = req.user;
-        console.log(user);
         res.json(user);
     }
 
@@ -392,22 +361,16 @@ module.exports = function(app, movieuserModel) {
     }
 
     function approveCritic(req, res){
-        console.log("user service server approve user");
         var reviewId = req.params.reviewId;
         var adminId = req.params.adminId;
         var review = req.body;
-        console.log(reviewId);
-        console.log(adminId);
 
         movieuserModel
             .findUserById(adminId)
             .then(function(response){
-                console.log(response);
                 if(response.roles == 'admin'){
-                    console.log("true admin");
                     movieuserModel.approveCritic(review)
                         .then(function(response) {
-                            console.log("sending res");
                             res.send(response);
                         }, function(err){
                             res.status(400).send(err);
@@ -418,14 +381,10 @@ module.exports = function(app, movieuserModel) {
     }
 
     function serializeUser(user, done) {
-        console.log("serialize");
         done(null, user);
     }
 
     function deserializeUser(user, done) {
-        console.log("deserialize");
-        console.log(user);
-        console.log(user._id);
         movieuserModel
             .findUserById(user._id)
             .then(
@@ -433,33 +392,9 @@ module.exports = function(app, movieuserModel) {
                     done(null, user);
                 },
                 function(err){
-                    console.log(err);
                     done(err, null);
                 }
             );
     }
 
-    /*function addUser(req, res){
-        var userId = req.params.userId;
-        var movieId = req.params.movieId;
-
-        movieModel
-            .findMovieById(movieId)
-            .then(
-                function(response){
-                    return movieModel.addUser(movieId, loggedInUserId);
-                },
-                function (err) {
-                    res.status(400).send(err);
-                }
-            )
-            .error(
-                function(err){
-                    return movieModel.createMovie(movieId);
-                },
-                function(err){
-                    res.status(400).send(err);
-                }
-            )
-    }*/
 }

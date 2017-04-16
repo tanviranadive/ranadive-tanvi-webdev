@@ -43,13 +43,10 @@
         }
 
         function deleteUser(userId) {
-            console.log(userId);
             return $http.delete("/api/project/user/"+userId);
         }
 
         function removeUser(userRemove, adminUser) {
-            console.log(userRemove);
-            console.log(adminUser);
             return $http.delete("/api/project/user/"+adminUser._id+"/remove/"+userRemove._id);
         }
 
@@ -72,8 +69,6 @@
         }
 
         function follow(userId, followUser) {
-            console.log("inside service client");
-            console.log(followUser);
             return $http.put("/api/project/user/" + userId + "/follows/" + followUser.userId,followUser);
         }
 
@@ -87,8 +82,6 @@
         function login(user) {
             return $http.post('/api/project/login', user)
                 .then(function (response) {
-                    console.log("login user service client");
-                    console.log(response);
                     return response.data;
                 });
         }
@@ -108,16 +101,10 @@
         }
 
         function approveCritic(adminId, review){
-            console.log("approve critic user service client");
             return $http.put('/api/project/admin/'+adminId+'/approve/review/'+review._id, review)
 
         }
 
-
-        /*function addMovie(userId, movieId, movie) {
-            console.log(movieId);
-            return $http.put("/api/project/user/" + userId + "/likes/" + movieId, movie);
-        }*/
     }
 
 })();

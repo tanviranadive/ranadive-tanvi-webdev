@@ -12,15 +12,11 @@
         console.log(currentUser);
         vm.currentUser = currentUser;
         vm.userId = $routeParams['uid'];
-        //vm.navUserId = $routeParams['navUserId'];
         vm.update = updateUsr;
         vm.delete = deleteUsr;
-        //vm.searchMovie = searchMovie;
         vm.searchUsers = searchUsers;
         vm.findUsers = findUsers;
         vm.follow = follow;
-        //vm.addMovie = addMovie;
-        //vm.showDetails = showDetails;
         vm.logout = logout;
         vm.menuItems = ['Profile', 'Movies', 'Followers', 'Following'];
         vm.alreadyFollowing=[];
@@ -92,7 +88,6 @@
         };
 
         function getUserMovies(){
-            console.log("in user movie");
             MovieUserService.findUserById(vm.userId)
                 .then(function(user) {
                     vm.user = user.data;
