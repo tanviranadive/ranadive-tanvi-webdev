@@ -28,14 +28,6 @@ module.exports = function(app, movieuserModel) {
     app.delete('/api/project/user/:userId', deleteUser);
     app.delete('/api/project/user/:userId/remove/:removeUserId', removeUser);
     app.post("/api/user", createUser);
-
-    app.get('/project/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-    app.get('/google/oauth/callback',
-        passport.authenticate('google', {
-            successRedirect: '#!/profile',
-            failureRedirect: '#!/login'
-        }));
-
     app.get('/auth/facebook',passport.authenticate('facebook',{ scope : 'email'}));
     app.get('/auth/facebook/callback',passport.authenticate('facebook', {
         failureRedirect: '/project/index.html#/login'
@@ -54,47 +46,7 @@ module.exports = function(app, movieuserModel) {
         profileFields: ['id','displayName', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
     };
 
-
-    var googleConfig = {
-        clientID     : process.env.GOOGLE_CLIENT_ID_SPRING_2017,
-        clientSecret : process.env.GOOGLE_CLIENT_SECRET_SPRING_2017,
-        callbackURL  : process.env.GOOGLE_CALLBACK_URL_SPRING_2017
-    };
-
-    //passport.use(new GoogleStrategy(googleConfig, googleStrategy));
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
-
-    function googleStrategy(token, refreshToken, profile, done) {
-        console.log(profile.id);
-        movieuserModel
-            .findUserByGoogleId(profile.id)
-            .then(function (user) {
-                if(user) {
-                    console.log(111);
-                    done(null, user);
-                } else {
-                    console.log(222);
-                    var user = {
-                        username: profile.emails[0].value,
-                        photo: profile.photos[0].value,
-                        firstName: profile.name.givenName,
-                        lastName:  profile.name.familyName,
-                        email:     profile.emails[0].value,
-                        google: {
-                            id:    profile.id
-                        }
-                    };
-                    return movieuserModel.createUser(user);
-                }
-            }, function (err) {
-                done(err, null);
-            })
-            .then(function (user) {
-                done(null, user);
-            }, function (err) {
-                done(err, null);
-            });
-    }
 
 
     function facebookStrategy(token, refreshToken, profile, done) {
@@ -114,8 +66,6 @@ module.exports = function(app, movieuserModel) {
                                 token: token
                             },
                             email: profile.emails[0].value,
-                            // username is a mandatory field for creating user
-                            // facebook does not give username
                             username: profile.emails[0].value
                         };
                         movieuserModel
@@ -160,7 +110,6 @@ module.exports = function(app, movieuserModel) {
     function findUser(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-        //console.log(username);
         if (username && password) {
             findUserByCredentials(req, res);
         }

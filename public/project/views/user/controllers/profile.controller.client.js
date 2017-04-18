@@ -126,8 +126,6 @@
 
         function getUserFollowers(){
             var loggedInUser = vm.user;
-            //console.log("in controller getting followers");
-            //console.log(loggedInUser);
             vm.followers=[];
             for(var i=0;i<loggedInUser.followers.length;i++)
             {
@@ -141,7 +139,7 @@
 
         }
 
-        function searchUsers(keyword){
+        /*function searchUsers(keyword){
             MovieUserService
                 .findUserByUsername(keyword)
                 .success(function(users){
@@ -157,6 +155,27 @@
                 })
                 .error(function(err){
                     vm.error = "Unable to find user";
+                })
+        }*/
+
+        function searchUsers(keyword){
+            vm.usersearch = true;
+            vm.filteredUsers=[];
+            MovieUserService
+                .findUsers(currentUser._id)
+                .then(function(response){
+                    var users = response.data;
+                    if(users.length==0)
+                        vm.error = "No user found";
+                    else
+                    {
+                        for(var i=0;i<users.length;i++){
+                            if(users[i].username.indexOf(keyword)>=0){
+                                vm.filteredUsers.push(users[i]);
+                            }
+                        }
+                        console.log(vm.filteredUsers);
+                    }
                 })
         }
 

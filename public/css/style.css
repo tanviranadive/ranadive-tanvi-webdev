@@ -337,16 +337,18 @@ body{
 }
 
 .tr-thumbnail{
-    background-color: #2e2e2e;
+    background-color: #F0F0F0;
 }
 
 .tr-thumbnail img{
+    margin-top:0px;
     padding-bottom: 5px;
 }
 #tr-thumbnail-title a{
     padding-bottom: 5px;
     font-size: medium;
-    color:white;
+    color:black;
+
 }
 
 .label-as-badge{
@@ -361,4 +363,17 @@ h4.smallheader {
 
 .placeholder {
     margin-bottom: 20px;
+}
+
+.input-group-btn{
+    padding-top:5px;
+}
+
+.tr-logo{
+    font-family: 'Gill Sans MT Condensed';
+    font-size:xx-large;
+}
+
+.navbar-inverse{
+    background-color: darkslategrey;
 }

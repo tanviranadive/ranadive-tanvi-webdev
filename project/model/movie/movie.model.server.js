@@ -38,17 +38,14 @@ module.exports = function () {
             .then(function(response){
                 if(response==null)
                 {
-                    //console.log("in create");
                     var movie = new MovieModel({"id": movieId});
                     movie.likers.push(loggedInUserId);;
                     MovieModel.create(movie)
                         .then(function(response){
-                            //console.log(response);
                             model.movieuserModel.addMovie(loggedInUserId, movie)
                                 .then(function(response){
                                 })
                         });
-                    //return MovieModel.create({id:movieId}, {$addToSet: {likers: loggedInUserId}});
                 }
                 else {
                     return MovieModel.update({id: movieId}, {$addToSet: {likers: loggedInUserId}})

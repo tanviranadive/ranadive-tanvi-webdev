@@ -21,6 +21,17 @@
                 controllerAs: "model"
             })
 
+            .when("/login", {
+                templateUrl: "views/user/login.view.client.html",
+                controller: "MovieLoginController",
+                controllerAs: "model"
+            })
+            .when("/register", {
+                templateUrl: "views/user/register.view.client.html",
+                controller: "MovieRegisterController",
+                controllerAs: "model"
+            })
+
             .when("/admin", {
                 templateUrl: "views/user/admin.view.client.html",
                 resolve: {
@@ -43,7 +54,6 @@
                     currentUser: checkLoggedIn
                 },
                 controller: "SearchController",
-                //controller: "MovieProfileController",
                 controllerAs: "model"
 
             })
@@ -65,30 +75,6 @@
                 controllerAs: "model"
             })
 
-            .when("/login", {
-                templateUrl: "views/user/login.view.client.html",
-                controller: "MovieLoginController",
-                controllerAs: "model"
-            })
-            .when("/register", {
-                templateUrl: "views/user/register.view.client.html",
-                controller: "MovieRegisterController",
-                controllerAs: "model"
-            })
-
-            .when("/navbar", {
-                templateUrl: "views/user/navbar.view.client.html"
-            })
-
-            .when("/user/:uid/navigatedUser/:navUserId", {
-                templateUrl: "views/user/profile.view.client.html",
-                controller: "MovieProfileController",
-                controllerAs: "model",
-                resolve: {
-                    currentUser: checkLoggedIn
-                }
-            })
-
             .when("/user/:uid", {
                 templateUrl: "views/user/profile.view.client.html",
                 controller: "MovieProfileController",
@@ -96,13 +82,6 @@
                 resolve: {
                     currentUser: checkLoggedIn
                 }
-            })
-
-
-            .when("/user/:uid/events", {
-                templateUrl: "views/events/event-list.view.client.html",
-                controller: "EventListController",
-                controllerAs: "model"
             })
 
             .when("/", {

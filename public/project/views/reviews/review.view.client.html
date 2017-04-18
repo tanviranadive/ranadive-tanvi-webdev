@@ -41,21 +41,21 @@
         </button>
         <a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">
             <span class="glyphicon glyphicon-film pull-left"></span>
-            MovieFlix
+            <b class="tr-logo">MovieFlix</b>
         </a>
     </div>
 
 
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li><a href="#/user/{{model.currentUser._id}}/searchMovies">Search Movies</a></li>
+            <li><a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">Search Movies</a></li>
         </ul>
         <div ng-show="model.userId">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#/user/{{model.currentUser._id}}">My Profile</a>
+                    <a class="navbar-brand" href="#/user/{{model.currentUser._id}}">My Profile</a>
                 </li>
-                <li><a href="#/logout">Logout</a></li>
+                <li><a class="navbar-brand" href="#/logout">Logout</a></li>
             </ul>
         </div>
 

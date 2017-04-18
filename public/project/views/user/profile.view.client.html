@@ -9,19 +9,20 @@
 
         <a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">
             <span class="glyphicon glyphicon-film pull-left"></span>
-            MovieFlix
+            <b class="tr-logo">MovieFlix</b>
         </a>
     </div>
 
 
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li><a href="#/user/{{model.currentUser._id}}/searchMovies">Search Movies</a></li>
+            <li><a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">Search Movies</a></li>
         </ul>
-        <div class="col-sm-3 col-md-3">
+        <div class="col-sm-4 col-md-5">
             <form class="navbar-form" role="search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search Users" ng-model="model.searchusername" name="q">
+                    <input type="text" class="form-control" placeholder="Username"
+                           ng-model="model.searchusername" name="q">
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit" ng-click="model.searchUsers(model.searchusername)">
                             <i class="glyphicon glyphicon-search"></i>
@@ -32,9 +33,9 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="#/user/{{model.currentUser._id}}">My Profile</a>
+                <a class="navbar-brand" href="#/user/{{model.currentUser._id}}">My Profile</a>
             </li>
-            <li><a href="#/logout">Logout</a></li>
+            <li><a class="navbar-brand" href="#/logout">Logout</a></li>
 
         </ul>
     </div>
@@ -47,7 +48,7 @@
 <div class="alert alert-success" ng-show="model.message">
     {{model.message}}
 </div>
-<div class="container-fluid row">
+<div class="row container-fluid">
     <div class="col-xs-5">
     <!--<div class="navbar navbar-left navbar-default col-sm-3">-->
         <a class="btn btn-primary" ng-if="model.user.role=='critic'">Critic</a>
@@ -71,7 +72,7 @@
         </ul>
     </div>
     <!--</div>-->
-    <div class="col-xs-7" ng-show="model.activeMenu == 'Profile'">
+    <div class="col-xs-7" ng-show="model.activeMenu == 'Profile'" ng-hide="model.usersearch">
         <div ng-hide="model.currentUser._id == model.user._id">
             <h4>Username: {{model.user.username}}</h4>
             <br>
@@ -120,7 +121,7 @@
     </form>
     </div>
 
-    <div class="col-xs-7" ng-show="model.activeMenu == 'Movies'">
+    <div class="col-xs-7" ng-show="model.activeMenu == 'Movies' || model.usersearch==false">
             <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="likedMovie in model.movies">
                 <div class="thumbnail">
                     <a href="#/user/{{model.currentUser._id}}/movie/{{likedMovie.id}}">
@@ -131,7 +132,7 @@
                 </div>
             </div>
 
-    <div class="col-xs-7" ng-show="model.activeMenu == 'Followers'">
+    <div class="col-xs-7" ng-show="model.activeMenu == 'Followers' || model.usersearch==false">
         <h2>Followers</h2>
         <br>
         <br>
@@ -143,7 +144,7 @@
         </ul>
     </div>
 
-    <div class="col-xs-7" ng-show="model.activeMenu == 'Following'">
+    <div class="col-xs-7" ng-show="model.activeMenu == 'Following' || model.usersearch==false">
         <h2>Following</h2>
         <br>
         <br>
@@ -154,6 +155,19 @@
             </li>
         </ul>
     </div>
+
+    <div class="col-xs-7" ng-show="model.usersearch">
+        <h2>Search Users</h2>
+        <br>
+        <br>
+        <i>{{model.filteredUsers.length}} users found</i>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="filteredUser in model.filteredUsers">
+                <a href="#/user/{{filteredUser._id}}">{{filteredUser.username}}</a>
+            </li>
+        </ul>
+    </div>
+
 </div>
 
 

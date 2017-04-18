@@ -25,11 +25,12 @@
         }
 
         function register(user){
+            var valid = validateRegistration(user);
+            if(valid){
             MovieUserService
                 .findUserByUsername(user.username)
                 .success(function(user){
                     vm.message = "Username is already taken";
-                    //console.log("username already taken");
                 })
                 .error(function(){
                     MovieUserService
@@ -43,6 +44,30 @@
                             vm.error = "sorry could not register";
                         })
                 })
+        }
+        else
+            {
+                vm.error = "Please enter a valid username and password";
+            }
+        }
+
+        function validateRegistration(user){
+            console.log("in validate user");
+            var valid = true;
+            if(user){
+                valid = valid && user.username;
+                valid = valid && user.password;
+                if(user.password == vm.verifypassword)
+                    valid = valid && true;
+                else
+                    valid = valid && false;
+
+            }
+
+            else
+                valid = false;
+            console.log(valid);
+            return valid;
         }
     }
 
