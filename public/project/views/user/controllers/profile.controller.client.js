@@ -18,6 +18,7 @@
         vm.findUsers = findUsers;
         vm.follow = follow;
         vm.logout = logout;
+        vm.usersearch;
         vm.menuItems = ['Profile', 'Movies', 'Followers', 'Following'];
         vm.alreadyFollowing=[];
         //vm.activeMenu = vm.menuItems[0];
@@ -26,6 +27,7 @@
         function setActive(menuItem) {
             console.log("set active called");
             vm.activeMenu = menuItem;
+            vm.usersearch = false;
         }
 
 
@@ -39,6 +41,7 @@
                 console.log("init");
                 console.log(vm.user);
                 vm.validUser=true;
+                //vm.usersearch=false;
                 getUserMovies();
                 getUserFollowing();
                 getUserFollowers();
@@ -88,6 +91,7 @@
         };
 
         function getUserMovies(){
+            //console.log(vm.usersearch);
             MovieUserService.findUserById(vm.userId)
                 .then(function(user) {
                     vm.user = user.data;
@@ -95,8 +99,10 @@
                     for (var i = 0; i < vm.user.likes.length; i++) {
                         MovieService.findMovie(vm.user.likes[i])
                             .then(function (movie) {
+                                //console.log(movie);
                                 MovieService.findMovieById(movie.data.id)
                                     .then(function (response) {
+                                        //console.log(response);
                                         vm.movies.push(response.data);
                                         //console.log(vm.movies);
                                     })
@@ -174,7 +180,6 @@
                                 vm.filteredUsers.push(users[i]);
                             }
                         }
-                        console.log(vm.filteredUsers);
                     }
                 })
         }

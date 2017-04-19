@@ -52,7 +52,6 @@
         }
 
         function validateRegistration(user){
-            console.log("in validate user");
             var valid = true;
             if(user){
                 valid = valid && user.username;
@@ -66,7 +65,6 @@
 
             else
                 valid = false;
-            console.log(valid);
             return valid;
         }
     }

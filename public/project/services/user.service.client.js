@@ -82,6 +82,7 @@
         function login(user) {
             return $http.post('/api/project/login', user)
                 .then(function (response) {
+                    console.log(response);
                     return response.data;
                 });
         }

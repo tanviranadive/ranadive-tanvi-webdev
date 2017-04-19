@@ -12,15 +12,22 @@
         vm.login = login;
 
         function login(user) {
+
             MovieUserService
-                .login(user)
-                .then(function (user) {
-                    if(user) {
-                        $location.url('/user/'+user._id);
-                    }
-                }, function (err) {
-                    vm.error = "Username/Password not found";
-                });
+                .findUserByUsername(user.username)
+                .then(function(response) {
+                    MovieUserService
+                        .login(user)
+                        .then(function (user) {
+                            if (user) {
+                                $location.url('/user/' + user._id);
+                            }
+                        }, function (err) {
+                            vm.error = "Username/Password not found";
+                        });
+                }, function(err){
+                        vm.error = "Username not found. Please register";
+                })
         }
     }
 

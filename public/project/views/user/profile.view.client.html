@@ -41,6 +41,7 @@
     </div>
 </nav>
 
+
 <div ng-show="model.error" class="alert alert-danger" >
     {{model.error}}
 </div>
@@ -50,6 +51,7 @@
 </div>
 <div class="row container-fluid">
     <div class="col-xs-5 col-md-3 tr-left-profile tr-right-border">
+
     <!--<div class="navbar navbar-left navbar-default col-sm-3">-->
         <a class="btn btn-primary" ng-if="model.user.role=='critic'">Critic</a>
         <!--<ul class="navbar navbar-inverse list-group tr-profile-sidebar">-->
@@ -81,7 +83,7 @@
         </ul>
     </div>
     <!--</div>-->
-    <div class="col-xs-7 col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Profile'" ng-hide="model.usersearch">
+    <div class="col-xs-7 col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Profile' && !model.usersearch">
         <div ng-hide="model.currentUser._id == model.user._id">
             <h4>Username: {{model.user.username}}</h4>
             <br>
@@ -122,7 +124,8 @@
                    type="password"
                    class="form-control"
                    placeholder="Password"
-                   id="password">
+                   id="password"
+                   readonly>
 
             <a ng-click="model.update(model.currentUser)"
                class="btn btn-primary btn-block">
@@ -137,7 +140,8 @@
     </form>
     </div>
 
-    <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Movies' || model.usersearch==false">
+
+    <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Movies' && !model.usersearch">
             <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="likedMovie in model.movies">
                 <div class="thumbnail">
                     <a href="#/user/{{model.currentUser._id}}/movie/{{likedMovie.id}}">
@@ -148,7 +152,7 @@
                 </div>
             </div>
 
-    <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Followers' || model.usersearch==false">
+    <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Followers' && !model.usersearch">
         <h2>Followers</h2>
         <br>
         <br>
@@ -160,7 +164,7 @@
         </ul>
     </div>
 
-    <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Following' || model.usersearch==false">
+    <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Following' && !model.usersearch">
         <h2>Following</h2>
         <br>
         <br>

@@ -32,7 +32,6 @@
             MovieService
                 .findMovieById(movieId)
                 .then(function (response) {
-                    console.log(response.data);
                     vm.movie = response.data;
                 })
         }
@@ -41,12 +40,10 @@
             MovieUserService
                 .findUserById(userId)
                 .success(function (response) {
-                    console.log(response);
                     vm.username = response.username;
                     vm.user = response;
                 })
                 .error(function(err){
-                    console.log(err);
                 })
         }
 
@@ -62,7 +59,6 @@
             MovieService
                 .getMovieCast(movieId)
                 .then(function(response){
-                    console.log(response);
                     vm.cast=[];
                     for(var i=0;i<response.data.cast.length;i++)
                     {
@@ -89,7 +85,6 @@
                 .follow(vm.userId, followuser)
                 .then(function (response) {
                     var status = response.data;
-                    console.log(status);
                     if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
                         vm.alreadyFollowing = true;
                     }
