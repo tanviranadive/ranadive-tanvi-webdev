@@ -22,8 +22,9 @@
                 showDetails(vm.movieId);
                 getLoggedInUser(vm.userId);
                 getMovieReviews(vm.movieId);
+                getMovieCast(vm.movieId);
             //vm.movie = MovieService.findMovieById(vm.movieId);
-            console.log(vm.review);
+            //console.log(vm.review);
         }
         init();
 
@@ -53,14 +54,32 @@
             ReviewService
                 .findReviewsForMovie(movieId)
                 .then(function(reviews){
-                    console.log("in movie controller get reviews for movie");
-                    console.log(reviews);
                     vm.reviews = reviews;
                 })
         }
 
+        function getMovieCast(movieId){
+            MovieService
+                .getMovieCast(movieId)
+                .then(function(response){
+                    console.log(response);
+                    vm.cast=[];
+                    for(var i=0;i<response.data.cast.length;i++)
+                    {
+                        if(response.data.cast[i].profile_path){
+                            vm.cast.push(response.data.cast[i]);
+                        }
+                    }
+                    if(vm.cast.length>8) {
+                        vm.showAllCast = true;
+                        vm.allCast=[];
+                    }
+                    for(var i=8;i<vm.cast.length;i++)
+                        vm.allCast.push(vm.cast[i]);
+                })
+        }
+
         function writeReview(){
-            console.log("here");
             $location.url("/user/"+vm.userId+"/movie/"+vm.movieId+"/review");
         }
 

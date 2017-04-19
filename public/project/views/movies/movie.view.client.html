@@ -36,64 +36,85 @@
     </div>
 </nav>
 
-<!--<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="row container-fluid">
-        <div class="col-sm-8">
-            <a class="navbar-brand">Home</a>
-            <a class="navbar-brand">About</a>
-            <a class="navbar-brand">Search Movies</a>
-        </div>
-
-        <div class="col-sm-4">
-            <div ng-hide="!model.userId">
-                <a class="navbar-brand ">Hello, {{model.username}}</a>
-                <a href="#/user/{{model.userId}}" class="navbar-brand ">Profile</a>
-                <a href="#/logout">
-                    <span class="glyphicon glyphicon-off"></span>
-                </a>
-            </div>
-            <div ng-hide="model.userId">
-                <a href="#/login" class="navbar-brand ">Login</a>
-                <a href="#/register" class="navbar-brand ">Register</a>
-            </div>
-        </div>
-    </div>
-</nav>-->
-
 <div class="container-fluid">
     <div class=".bg-overlay">
         <div>
             <h2>{{model.movie.title}}</h2>
             <div class="row">
-                <div class="col-sm-4">
-                    <img ng-src="https://image.tmdb.org/t/p/w185/{{model.movie.poster_path}}">
+                <div class="col-sm-4 col-xs-12">
+                    <img class="img img-responsive" ng-src="https://image.tmdb.org/t/p/w300/{{model.movie.poster_path}}">
                 </div>
-                <div class="col-sm-8">
-                    <i>Rating: {{model.movie.vote_average}}/10</i>
-                    <br><br>
-                    <i>Release Date: {{model.movie.release_date}}</i>
-                    <br>
-                    <br>
-                    <i>Runtime: {{model.movie.runtime}} mins</i>
-                    <br>
-                    <br>
-                    <a class="btn btn-primary" ng-click="model.writeReview()">
-                        Write Review
-                    </a>
+                <div class="col-sm-8 col-xs-12">
+                    <div class="row">
+                    <div class="col-sm-4 col-xs-6">
+                        <h3 ng-repeat="genre in model.movie.genres | limitTo:2">
+                    <span class="label label-default label-as-badge">
+                        {{genre.name}}
+                    </span>
+                        </h3>
+                        <br>
+                        <h4>
+                            <span class="glyphicon glyphicon-time"></span>
+                            {{model.movie.runtime}} mins
+                        </h4>
+                    </div>
+                    <div class="col-sm-4 col-xs-6">
+                        <br>
+                        <i>Rating: {{model.movie.vote_average}}/10</i>
+                        <br/>
+                        <br/>
+                        <i>Release Date: {{model.movie.release_date}}</i>
+                        <br>
+                        <br>
+                        <a class="btn btn-primary" ng-click="model.writeReview()">
+                            Write Review
+                        </a>
+                    </div>
+                <h2>&nbsp</h2>
                 </div>
+
+                <div class="row">
+                    <h6>&nbsp</h6>
+                    <div class="col-sm-8 col-md-8 col-xs-12">
+                    <h3 class="tr-movie-header">Plot Summary :</h3>
+                    <br>
+                    <p>{{model.movie.overview}}</p>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8">
+                        <h3 class="tr-movie-header">Cast</h3>
+                        <h2></h2>
+                        <ul class="list-inline">
+                            <li class="w92" ng-repeat="actor in model.cast | limitTo:8" ng-if="actor.profile_path">
+                                <a>
+                                    <img ng-src="https://image.tmdb.org/t/p/w92{{actor.profile_path}}"></a>
+                                <a class="title">{{actor.name}}</a>
+                            </li>
+                            <a ng-if="model.showAllCast==true && !model.expand" ng-click="model.expand=true">See more...</a>
+                            <div ng-hide="model.showAllCast==true || !model.expand" ng-show="model.expand==true">
+                                <ul class="list-inline">
+                                <li class="w92" ng-repeat="actor in model.allCast | limitTo:8" ng-if="actor.profile_path">
+                                <a>
+                                    <img ng-src="https://image.tmdb.org/t/p/w92{{actor.profile_path}}"></a>
+                                <a class="title">{{actor.name}}</a>
+                            </li>
+                                </ul>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
             </div>
 
             <br>
             <br>
-            <div>
-                <u>Plot Summary :</u>
-                <br>
-                <br>
-                <p>{{model.movie.overview}}</p>
-            </div>
 
             <div>
-                <h3>Reviews:</h3>
+                <h3 class="tr-movie-header">Reviews:</h3>
+                <br>
+                <i ng-if="model.reviews.data.length==0">No reviews for this movie yet.</i>
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="review in model.reviews.data" ng-show="review.isCritic">
                         <div id="userReviews">

@@ -9,6 +9,20 @@
                     <b class="tr-logo">MovieFlix</b>
                 </a>
 
+    <div class="col-sm-4 col-md-5 hidden-xs">
+        <form class="navbar-form" role="search">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Username"
+                       ng-model="keyword" name="q">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" id="tr-admin-button" type="submit" ng-click="model.searchMovie(keyword)">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
                 <a ng-show="model.currentUser!=null" href="#/logout" class="navbar-brand pull-right">
                     <span class="glyphicon glyphicon-off"></span>
                 </a>
@@ -30,7 +44,8 @@
 <div class="container-fluid tr-upperbackground">
     <div class=".bg-overlay">
         <div class="tr-search-field">
-            <h1>Search</h1>
+            <div class="visible-xs">
+            <h1>Search Movies</h1>
 
     <div class="row tr-input-field tr-search-field">
         <div>
@@ -38,29 +53,39 @@
         </div>
         <div class="row container-fluid tr-search-field">
         <div class="col-xs-4"></div>
-        <div class=" col-xs-4">
+        <div>
     <!--<a class="btn btn-primary tr-btn" ng-click="model.search(event)">Search</a>-->
-            <a class="btn btn-primary tr-btn" ng-click="model.searchMovie(keyword)">Search</a>
+            <a class="btn btn-block tr-btn" id="tr-admin-button" ng-click="model.searchMovie(keyword)">Go</a>
         </div>
         <div class="col-xs-4"></div>
         </div>
         <br>
         <br>
     </div>
+            </div>
 
         <div ng-show="!model.searchActivated">
             <h2>Upcoming Releases</h2>
 
                 <div class="col-md-4 col-sm-6 col-xs-12 placeholder" ng-repeat="upcomingMovie in model.upcomingMovies">
                     <div class="thumbnail tr-thumbnail">
+                        <div class="tr-movie-toolbar" ng-hide="!model.userId">
+                            <a class="navbar-brand pull-right" ng-if="!model.alreadyLiked" ng-click="model.addMovie(upcomingMovie.id,upcomingMovie)" ng-hide="!model.userId">
+                                <span class="glyphicon glyphicon-bookmark"></span>
+                            </a>
+                            <!--<span class="glyphicon glyphicon-align-justify"></span>-->
+                        </div>
+                        <div class="embed-responsive embed-responsive-4by3">
                         <a href="#/user/{{model.currentUser._id}}/movie/{{upcomingMovie.id}}">
-                            <img alt="src" href="#/user/{{model.currentUser._id}}/movie/{{upcomingMovie.id}}" class="card-img"
+                            <img alt="src" href="#/user/{{model.currentUser._id}}/movie/{{upcomingMovie.id}}" class="img img-responsive"
                                  ng-src="https://image.tmdb.org/t/p/w500/{{upcomingMovie.poster_path}}"
                                  src="../../../uploads/no-image.png">
                         </a>
+                        </div>
                         <div class="caption" id="tr-thumbnail-title">
                             <a href="#/user/{{model.currentUser._id}}/movie/{{upcomingMovie.id}}">
-                                {{upcomingMovie.title | limitTo:30}}
+                                <h4>{{upcomingMovie.title | limitTo:30}}</h4>
+                                <a>Rating: {{upcomingMovie.vote_average}}/10</a>
                             </a>
                         </div>
                     </div>
@@ -70,13 +95,17 @@
 
             <div ng-show="model.searchActivated">
 
-                <div class="col-md-3 col-sm-4 col-xs-12" ng-repeat="movie in model.results.results">
-                    <div class="row thumbnail tr-search-results">
-                        <a class="navbar-brand pull-right" ng-if="!model.alreadyLiked" ng-click="model.addMovie(movie.id,movie)" ng-hide="!model.userId">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </a>
-                            <img ng-if="movie.poster_path" ng-src="http://image.tmdb.org/t/p/w185/{{movie.poster_path}}" ng-click="model.showDetails(movie.id)">
-                            <img ng-if="!movie.poster_path" ng-src="../../../uploads/no-image.png" ng-click="model.showDetails(movie.id)">
+                <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="movie in model.results.results">
+                    <div class="thumbnail tr-thumbnail">
+
+                        <div class="tr-movie-toolbar" ng-hide="!model.userId">
+                            <a class="navbar-brand pull-right" ng-if="!model.alreadyLiked" ng-click="model.addMovie(movie.id,movie)" ng-hide="!model.userId">
+                                <span class="glyphicon glyphicon-bookmark"></span>
+                            </a>
+                            <!--<span class="glyphicon glyphicon-align-justify"></span>-->
+                        </div>
+                            <img class="embed-responsive embed-responsive-4by3" id="tr-search-img" ng-if="movie.poster_path" ng-src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}" ng-click="model.showDetails(movie.id)">
+                            <img class="embed-responsive embed-responsive-4by3" id="tr-search-img" ng-if="!movie.poster_path" ng-src="../../../uploads/no-image.png" ng-click="model.showDetails(movie.id)">
 
 
                         <div class="caption">

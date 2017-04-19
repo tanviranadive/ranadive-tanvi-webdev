@@ -49,30 +49,39 @@
     {{model.message}}
 </div>
 <div class="row container-fluid">
-    <div class="col-xs-5">
+    <div class="col-xs-5 col-md-3 tr-left-profile tr-right-border">
     <!--<div class="navbar navbar-left navbar-default col-sm-3">-->
         <a class="btn btn-primary" ng-if="model.user.role=='critic'">Critic</a>
-        <ul class="navbar navbar-inverse list-group tr-profile-sidebar">
-            <li ng-class="{active : activeMenu == 'Profile'}"  class="list-group-item borderless">
-                <a ng-click="model.setActive('Profile')">Profile</a>
+        <!--<ul class="navbar navbar-inverse list-group tr-profile-sidebar">-->
+        <ul class="list-group">
+            <li ng-class="{active : activeMenu == 'Profile'}"  class="list-group-item btn tr-profile-leftsidebar" ng-click="model.setActive('Profile')">
+                <div class="row">
+                <a><b>Profile</b></a>
+                </div>
             </li>
-            <li ng-class="{active : activeMenu == 'Movies'}" class="list-group-item borderless">
-                <a ng-click="model.setActive('Movies')">Movies</a>
+            <li ng-class="{active : activeMenu == 'Movies'}" class="list-group-item btn tr-profile-leftsidebar" ng-click="model.setActive('Movies')">
+                <div class="row">
+                    <a><b>Movies</b></a>
+                </div>
             </li>
-            <li ng-class="{active : activeMenu == 'Followers'}" class="list-group-item borderless">
-                <a ng-click="model.setActive('Followers')">
-                    Followers    ( {{model.user.followers.length}} )
+            <li ng-class="{active : activeMenu == 'Followers'}" class="list-group-item btn tr-profile-leftsidebar" ng-click="model.setActive('Followers')">
+                <div class="row">
+                    <a>
+                        <b>Followers    ( {{model.user.followers.length}} )</b>
                 </a>
+                </div>
             </li>
-            <li ng-class="{active : activeMenu == 'Following'}" class="list-group-item borderless">
-                <a ng-click="model.setActive('Following')">
-                    Following     ( {{model.user.following.length}} )
+            <li ng-class="{active : activeMenu == 'Following'}" class="list-group-item btn tr-profile-leftsidebar" ng-click="model.setActive('Following')">
+                <div class="row">
+                    <a>
+                        <b>Following     ( {{model.user.following.length}} )</b>
                 </a>
+                </div>
             </li>
         </ul>
     </div>
     <!--</div>-->
-    <div class="col-xs-7" ng-show="model.activeMenu == 'Profile'" ng-hide="model.usersearch">
+    <div class="col-xs-7 col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Profile'" ng-hide="model.usersearch">
         <div ng-hide="model.currentUser._id == model.user._id">
             <h4>Username: {{model.user.username}}</h4>
             <br>
@@ -108,6 +117,13 @@
                    placeholder="Last name"
                    id="lastname">
 
+            <label for="password">Password</label>
+            <input ng-model="model.currentUser.password"
+                   type="password"
+                   class="form-control"
+                   placeholder="Password"
+                   id="password">
+
             <a ng-click="model.update(model.currentUser)"
                class="btn btn-primary btn-block">
                 Update
@@ -121,7 +137,7 @@
     </form>
     </div>
 
-    <div class="col-xs-7" ng-show="model.activeMenu == 'Movies' || model.usersearch==false">
+    <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Movies' || model.usersearch==false">
             <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="likedMovie in model.movies">
                 <div class="thumbnail">
                     <a href="#/user/{{model.currentUser._id}}/movie/{{likedMovie.id}}">
@@ -132,7 +148,7 @@
                 </div>
             </div>
 
-    <div class="col-xs-7" ng-show="model.activeMenu == 'Followers' || model.usersearch==false">
+    <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Followers' || model.usersearch==false">
         <h2>Followers</h2>
         <br>
         <br>
@@ -144,7 +160,7 @@
         </ul>
     </div>
 
-    <div class="col-xs-7" ng-show="model.activeMenu == 'Following' || model.usersearch==false">
+    <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Following' || model.usersearch==false">
         <h2>Following</h2>
         <br>
         <br>
@@ -156,7 +172,7 @@
         </ul>
     </div>
 
-    <div class="col-xs-7" ng-show="model.usersearch">
+    <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.usersearch">
         <h2>Search Users</h2>
         <br>
         <br>

@@ -4,6 +4,7 @@
 /**
  * Created by Tanvi on 07-03-2017.
  */
+
 module.exports = function () {
     var model = null;
     var api = {
@@ -68,6 +69,7 @@ module.exports = function () {
     }
 
     function findUserByCredentials(username, password){
+
         return MovieUserModel
             .findOne({"username": username, "password": password});
     }

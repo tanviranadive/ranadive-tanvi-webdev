@@ -59,8 +59,6 @@
         }
 
         function remove(user) {
-            console.log("admin remove user");
-            console.log(user);
             var answer = confirm("Are you sure?");
             if(answer) {
                 MovieUserService
@@ -76,7 +74,6 @@
             MovieUserService
                 .findUsers()
                 .then(function (users) {
-                    console.log(users.data);
                     vm.users = users.data;
                 }, function (err) {
                     vm.error = err;
@@ -84,11 +81,9 @@
         }
 
         function findAllRequests(){
-            console.log(adminUser._id);
             ReviewService
                 .findReviewRequests(adminUser._id)
                 .then(function(response) {
-                    console.log(response);
                     vm.reviewrequests = response;
                 }, function(err){
                     vm.error = err;
@@ -96,12 +91,9 @@
         }
 
         function approveCritic(review){
-            console.log("admin controller approve critic");
-            console.log(review);
             MovieUserService
                 .approveCritic(adminUser._id, review)
                 .then(function(response) {
-                    console.log(response);
                     vm.message="Critic approved";
                     findAllRequests();
                 }, function(err){
@@ -110,12 +102,9 @@
         }
 
         function declineReview(review){
-            console.log("admin controller decline review");
-            console.log(review);
             ReviewService
                 .declineReview(review)
                 .then(function(response) {
-                    console.log(response);
                     findAllRequests();
                 }, function(err){
                     vm.err = err;

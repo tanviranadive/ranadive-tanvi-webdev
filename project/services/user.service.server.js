@@ -1,6 +1,8 @@
 /**
  * Created by Tanvi on 21-02-2017.
  */
+var bcrypt = require("bcrypt-nodejs");
+
 module.exports = function(app, movieuserModel) {
 
     var passport      = require('passport');
@@ -39,9 +41,12 @@ module.exports = function(app, movieuserModel) {
     //console.log(process.env.FACEBOOK_CLIENT_ID);
 
     var facebookConfig = {
-        clientID: process.env.FACEBOOK_CLIENT_ID,
+        /*clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL:process.env.FACEBOOK_CALLBACK_URL,
+        callbackURL:process.env.FACEBOOK_CALLBACK_URL,*/
+        clientID: 781336138707917,
+        clientSecret: '18c041448879c701fd6d809fe6e74aa6',
+        callbackURL:'http://localhost:3000/auth/facebook/callback',
 
         profileFields: ['id','displayName', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
     };
@@ -85,25 +90,22 @@ module.exports = function(app, movieuserModel) {
 
     function localStrategy(username, password, done) {
         movieuserModel
-            .findUserByCredentials(username, password)
-            .then(
-                function(user) {
-                    if (!user) {
-                        return done(null, false);
-                    }
-                    return done(null, user);
+
+        .findUserByUsername(username)
+            .then(function(user){
+                if(user && bcrypt.compareSync(password, user[0].password)){
+                    return done(null, user[0]);
+                }
+                    return done(null, false);
                 },
                 function(err) {
                     if (err) { return done(err); }
-                }
-            );
+            })
     }
-
-
 
     function logout(req, res) {
         req.logout();
-        res.send(200);
+        res.sendStatus(200);
     }
 
 
@@ -207,23 +209,34 @@ module.exports = function(app, movieuserModel) {
     function demoteUser(req, res) {
         var userId = req.params.userId;
         var user = req.body;
-        movieuserModel
-            .demoteUser(userId, user)
-            .then(function(user) {
-                    res.json(user);
-                },
-                function (error) {
-                    res.sendStatus(404).send(error);
+            movieuserModel
+                .demoteUser(userId, user)
+                .then(function (user) {
+                        res.json(user);
+                    },
+                    function (error) {
+                        res.sendStatus(404).send(error);
 
-                })
+                    })
     }
 
     function createUser(req, res){
         var newUser = req.body;
+        newUser.password = bcrypt.hashSync(newUser.password);
+        console.log(newUser);
         movieuserModel
             .createUser(newUser)
             .then(function(user) {
-                res.json(user);
+                if(user){
+                    req.login(user, function(err){
+                        if(err) {
+                            res.status(400).send(err);
+                        } else {
+                            res.json(user);
+                        }
+                    })
+                }
+                //res.json(user);
             }, function (error) {
                 res.sendStatus(500).send(error);
             });

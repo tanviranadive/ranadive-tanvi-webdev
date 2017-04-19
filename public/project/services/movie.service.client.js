@@ -14,7 +14,8 @@
             "likeMovie": likeMovie,
             "findMovie": findMovie,
             "searchMovieByKeyword": searchMovieByKeyword,
-            "getUpcomingMovies": getUpcomingMovies
+            "getUpcomingMovies": getUpcomingMovies,
+            "getMovieCast": getMovieCast
         };
 
         var baseUrl = "https://api.themoviedb.org/3";
@@ -42,6 +43,10 @@
 
         function likeMovie(userId, movieId, movie) {
             return $http.put("/api/project/user/" + userId + "/likes/" + movieId, movie);
+        }
+
+        function getMovieCast(movieId){
+            return $http.get(baseUrl+"/movie/"+movieId+"/credits?api_key=" + apikey);
         }
 
     }

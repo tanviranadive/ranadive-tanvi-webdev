@@ -68,8 +68,9 @@ body.tr-body-register-margin{margin-top:20px;}
 
 .navbar-inverse
 {
-    background-color: #3f3f3f;
-    opacity: 0.98;
+    //background-color: #3f3f3f;
+    background-color: darkcyan;
+    //opacity: 0.98;
 }
 .navbar-default .navbar-brand{color:white !important;}
 .navbar-inverse .navbar-brand{color:white !important;}
@@ -119,9 +120,8 @@ li.borderless{
     overflow: auto;
     padding-right:0px;
     padding-left:0px;
-
-
 }
+
 .tr-right-pane {
     position: absolute;
     top: 0px;
@@ -129,6 +129,35 @@ li.borderless{
     bottom: 0px;
     margin-bottom: 52px;
     margin-top: 60px;
+    padding-left: 30px;
+    padding-right: 15px;
+    overflow-y: auto;
+
+}
+
+.tr-left-profile {
+    //background-color: #3f3f3f;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding-top: 15px;
+    overflow: auto;
+    padding-right:0px;
+    padding-left:0px;
+}
+
+.tr-profile-leftsidebar{
+    //background-color: #3f3f3f;
+}
+
+.tr-right-profile {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin-top: 65px;
     padding-left: 30px;
     padding-right: 15px;
     overflow-y: auto;
@@ -237,20 +266,25 @@ body{
     color:black;
 }
 .tr-search-results .thumbnail{
-    flex-wrap: wrap;
+    //flex-wrap: wrap;
 }
 
 .tr-search-results img{
-    width: 95%;
+    width: 100%;
     //margin-left: 5px;
     //margin-right: 5px;
     //padding-left: 0px;
-    height: 278px;
-    flex-wrap: wrap;
+    //height: 278px;
+    //flex-wrap: wrap;
     align: center;
     margin-bottom: 5px;
     cursor: pointer;
     padding-bottom: 5px;
+}
+
+#tr-search-img{
+    width: 100%;
+    height: 400px;
 }
 
 .tr-search-results .card-title a{
@@ -266,9 +300,12 @@ body{
     cursor: pointer;
 }
 
-.tr-admin-button{
+#tr-admin-button{
+    background-color: #524f5c;
     color:white; !important;
 }
+
+
 
 .tr-profile-sidebar a{
     color: #acacac; !important;
@@ -338,15 +375,18 @@ body{
 
 .tr-thumbnail{
     background-color: #F0F0F0;
+    opacity: 0.95;
 }
 
 .tr-thumbnail img{
     margin-top:0px;
     padding-bottom: 5px;
 }
+
+
 #tr-thumbnail-title a{
     padding-bottom: 5px;
-    font-size: medium;
+    //font-size: medium;
     color:black;
 
 }
@@ -374,6 +414,51 @@ h4.smallheader {
     font-size:xx-large;
 }
 
-.navbar-inverse{
-    background-color: darkslategrey;
+.tr-movie-header{
+    border-bottom:1px solid gainsboro;
+}
+
+li.w92 img {
+    margin-top: 10px;
+    display: block;
+    margin-bottom: 10px;
+    width: 94px;
+    height: 136px;
+}
+
+a:focus, a:hover{
+    text-decoration: none;
+}
+
+#tr-admin-list .list-group-item {
+    padding-top:15px;
+    padding-bottom: 15px;
+}
+
+.tr-delete-btn{
+    margin-top: 0px;
+}
+
+#tr-admin-button .navbar-brand:hover{
+    background-color: #2e2e2e;
+}
+
+#tr-admin-button:hover{
+    background-color: #2e2e2e;
+    //color:white; !important;
+}
+
+.tr-movie-toolbar
+{
+    position:absolute;
+    background-color:white;
+    right: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 5px;
+    padding-bottom: 5px;
+    padding-top:0px;
+    border-bottom-left-radius: 5px;
+    opacity:0.98;
+    z-index: 100;
 }

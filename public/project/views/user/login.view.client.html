@@ -20,12 +20,12 @@
         <input ng-model="user.username" class = "form-control" placeholder="username"/>
         <input ng-model="user.password" type="password" class = "form-control" placeholder="password"/>
 
-    <a class="btn btn-success btn-block" ng-click="model.login(user)">Login</a>
+    <a class="btn btn-block" id="tr-admin-button" ng-click="model.login(user)">Login</a>
     <a href="/auth/facebook" class="btn btn-primary btn-block">
         <span class="fa fa-facebook"></span>
         Login with Facebook
     </a>
-    <a href="#/register" class="btn btn-danger btn-block">Register</a>
+    <a href="#/register" class="btn btn-block" id="tr-admin-button">Register</a>
 
 
 </div>
