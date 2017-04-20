@@ -14,7 +14,7 @@ module.exports = function () {
         lastName: String,
         email: String,
         phone: String,
-        //likes: [String],
+        movies: [String],
         likes: [{type: mongoose.Schema.Types.ObjectId, ref:'MovieModel'}],
         following:[{type: mongoose.Schema.Types.ObjectId, ref:'MovieUserModel'}],
         followers: [String],

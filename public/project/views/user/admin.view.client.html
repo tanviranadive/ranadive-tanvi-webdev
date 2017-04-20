@@ -1,45 +1,41 @@
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-collapse ">
-            <a href="#/admin" class="navbar-brand pull-left">
-                <span class="glyphicon glyphicon-film"></span>
-                <b class="tr-logo">MovieFlix</b>
-            </a>
+    <a href="#/admin" class="navbar-brand pull-left">
+        <span class="glyphicon glyphicon-film"></span>
+        <b class="tr-logo">MovieFlix</b>
+    </a>
     <a href="#/logout" class="navbar-brand pull-right">
         <span class="glyphicon glyphicon-off"></span>
     </a>
-            <a class="navbar-brand btn pull-right" id="tr-admin-button">Admin</a>
-
+    <a class="navbar-brand btn pull-right" id="tr-admin-button">Admin</a>
 </nav>
 
-<div ng-show="model.error" class="alert alert-danger" >
-    {{model.error}}
-</div>
-
-<div class="alert alert-success" ng-show="model.message">
-    {{model.message}}
-</div>
-
 <div class="row container-fluid">
-        <div class="col-xs-5 col-md-3 tr-left-profile tr-right-border">
-
-            <!--<div class="panel panel-default" id="panel">
-                <div class="panel-heading">
-                    <h2 class="panel-title">Required links</h2>
-                </div>-->
-            <br>
-            <br>
-            <br>
-                <ul class="list-group">
-                    <li ng-class="{active : activeMenu == 'Review Requests'}"  class="list-group-item btn tr-profile-leftsidebar">
-                        <a ng-click="model.setActive('Review Requests')">Review Requests</a>
-                    </li>
-                    <li ng-class="{active: activeMenu == 'Users'}" class="list-group-item btn tr-profile-leftsidebar">
-                        <a ng-click="model.setActive('Users'); model.findAllUsers()">Users</a>
-                    </li>
-                </ul>
-            <!--</div>-->
-        </div>
+    <div class="col-xs-5 col-md-3 tr-left-profile tr-right-border">
+        <br>
+        <br>
+        <br>
+        <ul class="list-group">
+            <li ng-class="{active : activeMenu == 'Review Requests'}"  class="list-group-item btn tr-profile-leftsidebar"
+                        ng-click="model.setActive('Review Requests')">
+                <a>Review Requests</a>
+            </li>
+            <li ng-class="{active: activeMenu == 'Users'}" class="list-group-item btn tr-profile-leftsidebar"
+                        ng-click="model.setActive('Users'); model.findAllUsers()">
+                <a>Users</a>
+            </li>
+        </ul>
+    </div>
 
     <div class="col-xs-7 col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Review Requests'">
+
+        <div ng-show="model.error" class="alert alert-danger" >
+            {{model.error}}
+        </div>
+
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+
         <ul class="list-group">
           <li class="list-group-item"  ng-repeat="request in model.reviewrequests.data">
               <div ng-if="request.userId!=model.user._id">
@@ -50,31 +46,40 @@
                   <p> Comment:
                  <i style="color:black">{{request.comment}}</i>
                   </p>
-                    <span>
-                        <a ng-show="!model.request.isCritc" ng-click="model.approveCritic(request)" class="btn btn-primary">Approve</a>
-                        <a class="btn btn-danger" ng-click="model.declineReview(request)">Decline</a>
-                    </span>
+                  <span>
+                      <a ng-show="!model.request.isCritc" ng-click="model.approveCritic(request)" class="btn btn-primary">Approve</a>
+                      <a class="btn btn-danger" ng-click="model.declineReview(request)">Decline</a>
+                  </span>
               </div>
           </li>
         </ul>
     </div>
 
     <div class="col-xs-7 tr-right-profile" ng-show="model.activeMenu == 'Users'">
+
+        <div ng-show="model.error" class="alert alert-danger" >
+            {{model.error}}
+        </div>
+
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+
+        <br>
         <h3 class="tr-movie-header">Users</h3>
         <ul class="list-group">
             <li class="list-group-item" id="tr-admin-list" ng-repeat="person in model.users" ng-if="person._id!=model.user._id">
                 <a>{{person.username}}</a>
                 <span class="pull-right">
-                <a class="btn btn-primary tr-delete-btn" ng-show="person.roles=='critic'" ng-click="model.demoteUser(person)">
-                    Demote
-                </a>
-                    </span>
-                    <span class="pull-right">
+                    <a class="btn btn-sm btn-primary tr-delete-btn" ng-show="person.roles=='critic'" ng-click="model.demoteUser(person)">
+                        Demote
+                    </a>
+                </span>
+                <span class="pull-right">
                     <a class="btn btn-sm btn-danger tr-delete-btn"  ng-click="model.remove(person)">Delete</a>
                 </span>
             </li>
         </ul>
     </div>
-
-    </div>
+</div>
 

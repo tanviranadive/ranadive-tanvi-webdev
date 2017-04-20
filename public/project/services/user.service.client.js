@@ -30,16 +30,16 @@
         return api;
 
         function findUserByCredentials(username, password){
-            return $http.get("/api/user?username="+username+"&password="+password);
+            return $http.get("/api/project/user?username="+username+"&password="+password);
         }
 
         function findUsers(userId){
-            return $http.get("/api/user/"+userId+"/users");
+            return $http.get("/api/project/user/"+userId+"/users");
         }
 
 
         function createUser(user) {
-            return $http.post("/api/user", user);
+            return $http.post("/api/project/user", user);
         }
 
         function deleteUser(userId) {
@@ -51,7 +51,7 @@
         }
 
         function updateUser(userId, newUser){
-            return $http.put("/api/user/"+userId, newUser);
+            return $http.put("/api/project/user/"+userId, newUser);
         }
 
         function demoteUser(user){
@@ -60,12 +60,12 @@
 
         function findUserById(uid){
 
-            return $http.get("/api/user/"+uid);
+            return $http.get("/api/project/user/"+uid);
         }
 
         function findUserByUsername(username){
 
-            return $http.get("/api/user?username="+username);
+            return $http.get("/api/project/user?username="+username);
         }
 
         function follow(userId, followUser) {
@@ -82,7 +82,6 @@
         function login(user) {
             return $http.post('/api/project/login', user)
                 .then(function (response) {
-                    console.log(response);
                     return response.data;
                 });
         }

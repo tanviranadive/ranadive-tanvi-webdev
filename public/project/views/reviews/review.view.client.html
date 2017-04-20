@@ -1,36 +1,3 @@
-<!--<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="row container-fluid">
-
-        <div class="col-sm-8">
-            <div class="row container-fluid">
-                <div class="col-sm-1">
-                    <div class="navbar-text pull-left">
-                    <a href="#/user/{{model.userId}}/movie/{{model.movieId}}">
-                        <span class="glyphicon glyphicon-chevron-left tr-no-left-header-margin"></span>
-                    </a>
-                    </div>
-                </div>
-
-                <div class="col-sm-7">
-                    <a class="navbar-brand">Home</a>
-                    <a class="navbar-brand">Search Movies</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div ng-hide="!model.userId">
-                <a class="navbar-brand ">Hello, {{model.username}}</a>
-                <a href="#/user/{{model.userId}}" class="navbar-brand ">Profile</a>
-            </div>
-            <div ng-hide="model.userId">
-                <a href="#/login" class="navbar-brand ">Login</a>
-                <a href="#/register" class="navbar-brand ">Register</a>
-            </div>
-        </div>
-    </div>
-</nav>-->
-
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-collapse ">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
@@ -45,7 +12,6 @@
         </a>
     </div>
 
-
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">Search Movies</a></li>
@@ -58,7 +24,6 @@
                 <li><a class="navbar-brand" href="#/logout">Logout</a></li>
             </ul>
         </div>
-
     </div>
 </nav>
 

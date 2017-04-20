@@ -15,6 +15,7 @@
         vm.addMovie = addMovie;
         vm.upcomingMovies = upcomingMovies;
         vm.showDetails = showDetails;
+        vm.alreadyLiked = alreadyLiked;
         vm.logout = logout;
 
         function init() {
@@ -94,6 +95,15 @@
                 .then(function(response){
                     vm.upcoming = response.data;
                 })
+        }
+
+
+        function alreadyLiked(movieid){
+            var s = ""+ movieid;
+            if(vm.currentUser.movies.indexOf(s)>=0)
+                return true;
+            else
+                return false;
         }
 
     }

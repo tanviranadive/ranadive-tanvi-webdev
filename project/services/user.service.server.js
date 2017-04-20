@@ -16,20 +16,18 @@ module.exports = function(app, movieuserModel) {
 
     app.post('/api/project/login', passport.authenticate('local'), login);
     app.post('/api/project/logout', logout);
-    app.get("/api/user", findUser);
-    app.get("/api/user/:userId", findUserById);
-    app.get("/api/user/:userId/users", findUsers);
-    app.put("/api/user/:userId", updateUser);
+    app.get("/api/project/user", findUser);
+    app.get("/api/project/user/:userId", findUserById);
+    app.get("/api/project/user/:userId/users", findUsers);
+    app.put("/api/project/user/:userId", updateUser);
     app.put("/api/project/user/:userId/follows/:followUserId", follow);
     app.post('/api/project/loggedin', loggedin);
     app.post('/api/project/isAdmin', isAdmin);
     app.put('/api/project/admin/:adminId/approve/review/:reviewId', approveCritic);
     app.put('/api/project/user/:userId', demoteUser);
-    //app.put("/api/project/user/:userId/likes/:movieId", addMovie);
-    //app.put("/api/project/user/:userId/likes/:movieId", likeMovie);
     app.delete('/api/project/user/:userId', deleteUser);
     app.delete('/api/project/user/:userId/remove/:removeUserId', removeUser);
-    app.post("/api/user", createUser);
+    app.post("/api/project/user", createUser);
     app.get('/auth/facebook',passport.authenticate('facebook',{ scope : 'email'}));
     app.get('/auth/facebook/callback',passport.authenticate('facebook', {
         failureRedirect: '/project/index.html#/login'
@@ -37,8 +35,6 @@ module.exports = function(app, movieuserModel) {
         var url = '/project/index.html#/user/' + req.user._id.toString();
         res.redirect(url);
     });
-
-    //console.log(process.env.FACEBOOK_CLIENT_ID);
 
     var facebookConfig = {
         clientID: process.env.FACEBOOK_CLIENT_ID,
@@ -50,15 +46,14 @@ module.exports = function(app, movieuserModel) {
 
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
-
     function facebookStrategy(token, refreshToken, profile, done) {
         movieuserModel
             .findUserByFacebookId(profile.id)
             .then(function(user) {
                     if(user) {
-                        // If User exists
                         return done(null, user);
-                    } else {
+                        }
+                    else {
                         var names = profile.displayName.split(" ");
                         var newFacebookUser = {
                             firstName:  names[0],
@@ -83,11 +78,8 @@ module.exports = function(app, movieuserModel) {
     }
 
 
-
-
     function localStrategy(username, password, done) {
         movieuserModel
-
         .findUserByUsername(username)
             .then(function(user){
                 if(user && bcrypt.compareSync(password, user[0].password)){
@@ -115,8 +107,8 @@ module.exports = function(app, movieuserModel) {
         else if (username) {
             findUserByUsername(req, res);
         }
-
     }
+
 
     function findUserByUsername(req, res) {
         var username = req.query.username;
@@ -134,10 +126,10 @@ module.exports = function(app, movieuserModel) {
             });
     }
 
+
     function findUserByCredentials(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-
         movieuserModel
             .findUserByCredentials(username, password)
             .then(function(user){
@@ -147,6 +139,7 @@ module.exports = function(app, movieuserModel) {
             });
     }
 
+
     function findUserById(req, res) {
         var userId = req.params.userId;
         movieuserModel
@@ -155,6 +148,7 @@ module.exports = function(app, movieuserModel) {
                 res.json(user);
             });
     }
+
 
     function findUsers(req, res) {
         var userId = req.params.userId;
@@ -179,6 +173,8 @@ module.exports = function(app, movieuserModel) {
                 })
     }
 
+
+
     function deleteUser(req, res) {
         var userId = req.params.userId;
         movieuserModel
@@ -200,8 +196,8 @@ module.exports = function(app, movieuserModel) {
                     },function (err) {
                         res.sendStatus(404);
                     });
-
     }
+
 
     function demoteUser(req, res) {
         var userId = req.params.userId;
@@ -217,10 +213,10 @@ module.exports = function(app, movieuserModel) {
                     })
     }
 
+
     function createUser(req, res){
         var newUser = req.body;
         newUser.password = bcrypt.hashSync(newUser.password);
-        console.log(newUser);
         movieuserModel
             .createUser(newUser)
             .then(function(user) {
@@ -233,11 +229,11 @@ module.exports = function(app, movieuserModel) {
                         }
                     })
                 }
-                //res.json(user);
             }, function (error) {
                 res.sendStatus(500).send(error);
             });
     }
+
 
     function follow(req, res) {
         var loggedInUserId = req.params.userId;
@@ -262,40 +258,6 @@ module.exports = function(app, movieuserModel) {
                 });
     }
 
-    function addMovie(req, res) {
-        var loggedInUserId = req.params.userId;
-        var movieId = req.params.movieId;
-        movieuserModel
-            .addMovie(loggedInUserId, movieId)
-            .then(
-                function (response) {
-                    return movieuserModel.addUser(loggedInUserId, movieId);
-                },
-                function (err) {
-                    res.status(400).send(err);
-                }
-            )
-            .then(
-                function (response) {
-                    res.json(response);
-                },
-                function (err) {
-                    res.status(400).send(err);
-                });
-    }
-
-    function likeMovie(req, res){
-        var loggedInUserId = req.params.userId;
-        var movieId = req.params.movieId;
-        var movie = req.body;
-        movieuserModel
-            .likeMovie(loggedInUserId,movieId,movie)
-            .then(function(response){
-            res.send(response);
-        }),function (err) {
-            res.status(400).send(err);
-        }
-    }
 
     function loggedin(req, res) {
         if(req.isAuthenticated()) {
@@ -306,10 +268,12 @@ module.exports = function(app, movieuserModel) {
         }
     }
 
+
     function login(req, res) {
         var user = req.user;
         res.json(user);
     }
+
 
     function isAdmin(req, res) {
         if(req.isAuthenticated() && req.user.roles == 'admin') {
@@ -318,6 +282,7 @@ module.exports = function(app, movieuserModel) {
             res.send('0');
         }
     }
+
 
     function approveCritic(req, res){
         var reviewId = req.params.reviewId;
@@ -338,6 +303,7 @@ module.exports = function(app, movieuserModel) {
             })
 
     }
+
 
     function serializeUser(user, done) {
         done(null, user);

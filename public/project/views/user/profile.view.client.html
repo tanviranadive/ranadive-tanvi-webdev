@@ -13,7 +13,6 @@
         </a>
     </div>
 
-
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">Search Movies</a></li>
@@ -52,13 +51,11 @@
 <div class="row container-fluid">
     <div class="col-xs-5 col-md-3 tr-left-profile tr-right-border">
 
-    <!--<div class="navbar navbar-left navbar-default col-sm-3">-->
         <a class="btn btn-primary" ng-if="model.user.role=='critic'">Critic</a>
-        <!--<ul class="navbar navbar-inverse list-group tr-profile-sidebar">-->
         <ul class="list-group">
             <li ng-class="{active : activeMenu == 'Profile'}"  class="list-group-item btn tr-profile-leftsidebar" ng-click="model.setActive('Profile')">
                 <div class="row">
-                <a><b>Profile</b></a>
+                    <a><b>Profile</b></a>
                 </div>
             </li>
             <li ng-class="{active : activeMenu == 'Movies'}" class="list-group-item btn tr-profile-leftsidebar" ng-click="model.setActive('Movies')">
@@ -82,7 +79,7 @@
             </li>
         </ul>
     </div>
-    <!--</div>-->
+
     <div class="col-xs-7 col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Profile' && !model.usersearch">
         <div ng-hide="model.currentUser._id == model.user._id">
             <h4>Username: {{model.user.username}}</h4>
@@ -93,64 +90,61 @@
             <br>
             <a ng-show="model.currentUser.following.indexOf(model.user._id)<0 && model.currentUser._id != model.user._id"
                 class="btn btn-primary" ng-click="model.follow(model.user)">Follow</a>
-
         </div>
+        <form>
+            <div class="form-group" ng-hide="model.currentUser._id!=model.user._id">
+                <label for="username">Username</label>
+                <input ng-model="model.currentUser.username"
+                       type="text"
+                       class="form-control"
+                       placeholder="username"
+                       id="username">
 
-    <form>
-        <div class="form-group" ng-hide="model.currentUser._id!=model.user._id">
-            <label for="username">Username</label>
-            <input ng-model="model.currentUser.username"
-                   type="text"
-                   class="form-control"
-                   placeholder="username"
-                   id="username">
+                <label for="firstname">First Name</label>
+                <input ng-model="model.currentUser.firstName"
+                       type="text"
+                       class="form-control"
+                       placeholder="First name"
+                       id="firstname">
 
-            <label for="firstname">First Name</label>
-            <input ng-model="model.currentUser.firstName"
-                   type="text"
-                   class="form-control"
-                   placeholder="First name"
-                   id="firstname">
+                <label for="lastname">Last Name</label>
+                <input ng-model="model.currentUser.lastName"
+                       type="text"
+                       class="form-control"
+                       placeholder="Last name"
+                       id="lastname">
 
-            <label for="lastname">Last Name</label>
-            <input ng-model="model.currentUser.lastName"
-                   type="text"
-                   class="form-control"
-                   placeholder="Last name"
-                   id="lastname">
+                <label for="password">Password</label>
+                <input ng-model="model.currentUser.password"
+                       type="password"
+                       class="form-control"
+                       placeholder="Password"
+                       id="password"
+                       readonly>
 
-            <label for="password">Password</label>
-            <input ng-model="model.currentUser.password"
-                   type="password"
-                   class="form-control"
-                   placeholder="Password"
-                   id="password"
-                   readonly>
-
-            <a ng-click="model.update(model.currentUser)"
-               class="btn btn-primary btn-block">
-                Update
-            </a>
-
-            <a href="#/logout" class="btn btn-danger btn-block">
-                Logout
-            </a>
-
-        </div>
-    </form>
+                <a ng-click="model.update(model.currentUser)"
+                   class="btn btn-primary btn-block">
+                    Update
+                </a>
+                <a href="#/logout" class="btn btn-danger btn-block">
+                    Logout
+                </a>
+            </div>
+        </form>
     </div>
 
-
     <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Movies' && !model.usersearch">
-            <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="likedMovie in model.movies">
-                <div class="thumbnail">
-                    <a href="#/user/{{model.currentUser._id}}/movie/{{likedMovie.id}}">
-                <img ng-src="https://image.tmdb.org/t/p/w185/{{likedMovie.poster_path}}" alt="src">
-                    <h4 class="card-title">{{likedMovie.title}}</h4>
-                    </a>
-                </div>
-                </div>
+        <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="likedMovie in model.movies">
+            <div class="thumbnail tr-thumbnail">
+                <a href="#/user/{{model.currentUser._id}}/movie/{{likedMovie.id}}">
+                    <img ng-src="https://image.tmdb.org/t/p/w185/{{likedMovie.poster_path}}" alt="src">
+                    <div class="caption" id="tr-thumbnail-rating">
+                        <h4>{{likedMovie.title}}</h4>
+                    </div>
+                </a>
             </div>
+        </div>
+    </div>
 
     <div class="col-xs-7  col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Followers' && !model.usersearch">
         <h2>Followers</h2>

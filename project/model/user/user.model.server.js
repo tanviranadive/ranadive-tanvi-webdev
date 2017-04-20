@@ -90,14 +90,14 @@ module.exports = function () {
         return MovieUserModel.update({_id: followUserId}, {$addToSet: {followers: loggedInUserId}});
     }
 
-    //function addMovie(loggedInUserId, movieId)
+
     function addMovie(loggedInUserId, movie){
         return MovieUserModel.findById(loggedInUserId)
             .then(function(user){
-                return MovieUserModel.update({_id: user._id}, {$addToSet: {likes: movie}});
+                return MovieUserModel.update({_id: user._id}, {$addToSet: {likes: movie, movies: movie.id}});
             })
-
     }
+
     function likeMovie(loggedInUserId, movieId, movie){
        return model.movieModel.likeMovie(loggedInUserId, movieId, movie);
     }
@@ -116,6 +116,7 @@ module.exports = function () {
                                         })
                         })
     }
+
 
     function setModel(_model) {
         model = _model;

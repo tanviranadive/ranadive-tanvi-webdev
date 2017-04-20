@@ -1,139 +1,142 @@
-<nav class="navbar navbar-inverse navbar-fixed-top navbar-collapse ">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">
-            <span class="glyphicon glyphicon-film pull-left"></span>
-            <b class="tr-logo">MovieFlix</b>
-        </a>
-    </div>
-
-
-    <div class="collapse navbar-collapse" id="navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li><a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">Search Movies</a></li>
-        </ul>
-        <div ng-show="model.userId">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a class="navbar-brand" href="#/user/{{model.currentUser._id}}">My Profile</a>
-            </li>
-            <li><a class="navbar-brand" href="#/logout">Logout</a></li>
-        </ul>
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-collapse ">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">
+                <span class="glyphicon glyphicon-film pull-left"></span>
+                <b class="tr-logo">MovieFlix</b>
+            </a>
         </div>
 
-        <div ng-hide="model.userId">
-            <ul class="nav navbar-nav navbar-right">
-            <li><a href="#/login" class="navbar-brand ">Login</a></li>
-            <li><a href="#/register" class="navbar-brand ">Register</a></li>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a class="navbar-brand" href="#/user/{{model.currentUser._id}}/searchMovies">
+                    Search Movies
+                </a></li>
             </ul>
-        </div>
-
-    </div>
-</nav>
-
-<div class="container-fluid">
-    <div class=".bg-overlay">
-        <div>
-            <h2>{{model.movie.title}}</h2>
-            <div class="row">
-                <div class="col-sm-4 col-xs-12">
-                    <img class="img img-responsive" ng-src="https://image.tmdb.org/t/p/w300/{{model.movie.poster_path}}">
-                </div>
-                <div class="col-sm-8 col-xs-12">
-                    <div class="row">
-                    <div class="col-sm-4 col-xs-6">
-                        <h3 ng-repeat="genre in model.movie.genres | limitTo:2">
-                    <span class="label label-default label-as-badge">
-                        {{genre.name}}
-                    </span>
-                        </h3>
-                        <br>
-                        <h4>
-                            <span class="glyphicon glyphicon-time"></span>
-                            {{model.movie.runtime}} mins
-                        </h4>
-                    </div>
-                    <div class="col-sm-4 col-xs-6">
-                        <br>
-                        <i>Rating: {{model.movie.vote_average}}/10</i>
-                        <br/>
-                        <br/>
-                        <i>Release Date: {{model.movie.release_date}}</i>
-                        <br>
-                        <br>
-                        <a class="btn btn-primary" ng-click="model.writeReview()">
-                            Write Review
-                        </a>
-                    </div>
-                <h2>&nbsp</h2>
-                </div>
-
-                <div class="row">
-                    <h6>&nbsp</h6>
-                    <div class="col-sm-8 col-md-8 col-xs-12">
-                    <h3 class="tr-movie-header">Plot Summary :</h3>
-                    <br>
-                    <p>{{model.movie.overview}}</p>
-                </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8">
-                        <h3 class="tr-movie-header">Cast</h3>
-                        <h2></h2>
-                        <ul class="list-inline">
-                            <li class="w92" ng-repeat="actor in model.cast | limitTo:8" ng-if="actor.profile_path">
-                                <a>
-                                    <img ng-src="https://image.tmdb.org/t/p/w92{{actor.profile_path}}"></a>
-                                <a class="title">{{actor.name}}</a>
-                            </li>
-                            <a ng-if="model.showAllCast==true && !model.expand" ng-click="model.expand=true">See more...</a>
-                            <div ng-hide="model.showAllCast==true || !model.expand" ng-show="model.expand==true">
-                                <ul class="list-inline">
-                                <li class="w92" ng-repeat="actor in model.allCast | limitTo:8" ng-if="actor.profile_path">
-                                <a>
-                                    <img ng-src="https://image.tmdb.org/t/p/w92{{actor.profile_path}}"></a>
-                                <a class="title">{{actor.name}}</a>
-                            </li>
-                                </ul>
-                            </div>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            </div>
+            <div ng-show="model.userId">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="navbar-brand" href="#/user/{{model.currentUser._id}}">My Profile</a>
+                </li>
+                <li><a class="navbar-brand" href="#/logout">Logout</a></li>
+            </ul>
             </div>
 
-            <br>
-            <br>
-
-            <div>
-                <h3 class="tr-movie-header">Reviews:</h3>
-                <br>
-                <i ng-if="model.reviews.data.length==0">No reviews for this movie yet.</i>
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="review in model.reviews.data" ng-show="review.isCritic">
-                        <div id="userReviews">
-                            <span>
-                            <a href="#/user/{{review.user.userId}}">{{review.user.username}}</a>
-                            <a ng-if="model.user.following.indexOf(review.user.userId) >= 0" class = "btn btn-sm tr-upload-button">Already Following</a>
-                            <a ng-if="model.user.following.indexOf(review.user.userId) < 0"
-                               ng-click="model.follow(review.user)" class = "btn btn-primary btn-sm"
-                               ng-show="model.userId!=review.user.userId">Follow</a>
-                        </span>
-                        </div>
-                        <br>
-                        <div>
-                        <p>{{review.comment}}</p>
-                        </div>
-                    </li>
+            <div ng-hide="model.userId">
+                <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/login" class="navbar-brand ">Login</a></li>
+                <li><a href="#/register" class="navbar-brand ">Register</a></li>
                 </ul>
             </div>
         </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class=".bg-overlay">
+            <div>
+                <h2>{{model.movie.title}}</h2>
+                <div class="row">
+                    <div class="col-sm-4 col-xs-12">
+                        <img class="img img-responsive"
+                             ng-src="https://image.tmdb.org/t/p/w300/{{model.movie.poster_path}}">
+                    </div>
+                    <div class="col-sm-8 col-xs-12">
+                        <div class="row">
+                        <div class="col-sm-4 col-xs-6">
+                            <h4 ng-repeat="genre in model.movie.genres | limitTo:2">
+                        <span class="label label-default label-as-badge">
+                            {{genre.name}}
+                        </span>
+                            </h4>
+                            <br>
+                            <h4>
+                                <span class="glyphicon glyphicon-time"></span>
+                                {{model.movie.runtime}} mins
+                            </h4>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <br>
+                            <i>Rating: {{model.movie.vote_average}}/10</i>
+                            <br/>
+                            <br/>
+                            <i>Release Date: {{model.movie.release_date}}</i>
+                            <br>
+                            <br>
+                            <a class="btn btn-primary" ng-click="model.writeReview()">
+                                Write Review
+                            </a>
+                        </div>
+                    <h2>&nbsp</h2>
+                    </div>
+
+                    <div class="row">
+                        <h6>&nbsp</h6>
+                        <div class="col-sm-8 col-md-8 col-xs-12">
+                        <h3 class="tr-movie-header">Plot Summary :</h3>
+                        <br>
+                        <p>{{model.movie.overview}}</p>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8">
+                            <h3 class="tr-movie-header">Cast</h3>
+                            <h2></h2>
+                            <ul class="list-inline">
+                                <li class="w92" ng-repeat="actor in model.cast | limitTo:8" ng-if="actor.profile_path">
+                                    <a>
+                                        <img ng-src="https://image.tmdb.org/t/p/w92{{actor.profile_path}}"></a>
+                                    <a class="title">{{actor.name}}</a>
+                                </li>
+                                <a ng-if="model.showAllCast==true && !model.expand" ng-click="model.expand=true">
+                                    See more...
+                                </a>
+                                <div ng-hide="model.showAllCast==true || !model.expand" ng-show="model.expand==true">
+                                    <ul class="list-inline">
+                                    <li class="w92" ng-repeat="actor in model.allCast | limitTo:8" ng-if="actor.profile_path">
+                                    <a>
+                                        <img ng-src="https://image.tmdb.org/t/p/w92{{actor.profile_path}}"></a>
+                                    <a class="title">{{actor.name}}</a>
+                                </li>
+                                    </ul>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <h3 class="tr-movie-header">Reviews:</h3>
+                    <br>
+                    <i ng-if="model.reviews.data.length==0">No reviews for this movie yet.</i>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="review in model.reviews.data" ng-show="review.isCritic">
+                            <div id="userReviews">
+                                <span>
+                                <a href="#/user/{{review.user.userId}}">{{review.user.username}}</a>
+                                <a ng-if="model.user.following.indexOf(review.user.userId) >= 0" class = "btn btn-sm tr-upload-button">Already Following</a>
+                                <a ng-if="model.user.following.indexOf(review.user.userId) < 0"
+                                   ng-click="model.follow(review.user)" class = "btn btn-primary btn-sm"
+                                   ng-show="model.userId!=review.user.userId">Follow</a>
+                            </span>
+                            </div>
+                            <br>
+                            <div>
+                            <p>{{review.comment}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
-    </div>
-</div>

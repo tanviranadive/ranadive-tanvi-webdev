@@ -9,7 +9,6 @@
     function movieprofileController($routeParams, MovieUserService, MovieService, $location, $http, currentUser){
         var vm = this;
 
-        console.log(currentUser);
         vm.currentUser = currentUser;
         vm.userId = $routeParams['uid'];
         vm.update = updateUsr;
@@ -21,11 +20,9 @@
         vm.usersearch;
         vm.menuItems = ['Profile', 'Movies', 'Followers', 'Following'];
         vm.alreadyFollowing=[];
-        //vm.activeMenu = vm.menuItems[0];
         vm.setActive = setActive;
 
         function setActive(menuItem) {
-            console.log("set active called");
             vm.activeMenu = menuItem;
             vm.usersearch = false;
         }
@@ -33,22 +30,14 @@
 
         function init() {
             vm.activeMenu = vm.menuItems[0];
-            //vm.searchActivated = false;
-
             MovieUserService.findUserById(vm.userId)
             .then(function(user){
                 vm.user = user.data;
-                console.log("init");
-                console.log(vm.user);
                 vm.validUser=true;
-                //vm.usersearch=false;
                 getUserMovies();
                 getUserFollowing();
                 getUserFollowers();
-                //upcomingMovies();
             });
-
-
         }
         init();
 
@@ -72,7 +61,6 @@
                     .error(function(){
                         vm.error("Unable to delete user");
                     })
-
             }
         };
 
@@ -87,11 +75,10 @@
                         vm.message = "User updated successfully.";
                     }
                 });
-
         };
 
+
         function getUserMovies(){
-            //console.log(vm.usersearch);
             MovieUserService.findUserById(vm.userId)
                 .then(function(user) {
                     vm.user = user.data;
@@ -99,70 +86,41 @@
                     for (var i = 0; i < vm.user.likes.length; i++) {
                         MovieService.findMovie(vm.user.likes[i])
                             .then(function (movie) {
-                                //console.log(movie);
                                 MovieService.findMovieById(movie.data.id)
                                     .then(function (response) {
-                                        //console.log(response);
                                         vm.movies.push(response.data);
-                                        //console.log(vm.movies);
                                     })
                             })
-
                     }
                 })
-
-            //console.log(vm.movies);
         }
+
 
         function getUserFollowing(){
             var loggedInUser = vm.user;
-            //console.log(loggedInUser);
             vm.followingusers=[];
             for(var i=0;i<loggedInUser.following.length;i++)
             {
                 MovieUserService
                     .findUserById(loggedInUser.following[i])
                     .then(function(response){
-                        //console.log(response.data);
                         vm.followingusers.push(response.data);
                     })
             }
-
         }
 
         function getUserFollowers(){
             var loggedInUser = vm.user;
             vm.followers=[];
             for(var i=0;i<loggedInUser.followers.length;i++)
-            {
-                MovieUserService
+            {   MovieUserService
                     .findUserById(loggedInUser.followers[i])
                     .then(function(response){
-                        //console.log(response.data);
                         vm.followers.push(response.data);
                     })
             }
-
         }
 
-        /*function searchUsers(keyword){
-            MovieUserService
-                .findUserByUsername(keyword)
-                .success(function(users){
-                    //console.log(users);
-                    if(users.length==0)
-                    {
-                        vm.error = "No such user found";
-                    }
-                    else {
-                        vm.searchedUser = users;
-                        $location.url('/user/'+vm.searchedUser._id);
-                    }
-                })
-                .error(function(err){
-                    vm.error = "Unable to find user";
-                })
-        }*/
 
         function searchUsers(keyword){
             vm.usersearch = true;
@@ -204,14 +162,11 @@
         }
 
         function follow(inputuser) {
-            //console.log(vm.currentUser._id);
-            //console.log(inputuser);
             var followuser={'userId': inputuser._id, 'username': inputuser.username};
             MovieUserService
                 .follow(vm.currentUser._id, followuser)
                 .then(function (response) {
                     var status = response.data;
-                    //console.log(status);
                     if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
                         vm.alreadyFollowing=true;
                     }
@@ -222,8 +177,6 @@
                     $location.url('/user/'+vm.user._id);
                 })
         }
-
-
     }
 
 })();

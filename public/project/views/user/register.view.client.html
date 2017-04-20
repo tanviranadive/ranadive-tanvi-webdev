@@ -3,22 +3,12 @@
         <span class="glyphicon glyphicon-film pull-left"></span>
         <b class="tr-logo">MovieFlix</b>
     </a>
-
-    <!--<div ng-hide="!model.user">
-        <a class="navbar-brand ">Hello, {{model.user.username}}</a>
-        <a href="#/user/{{model.user._id}}" class="navbar-brand ">Profile</a>
-    </div>-->
-
     <a href="#/register" class="navbar-brand pull-right">Register</a>
     <a href="#/login" class="navbar-brand pull-right">Login</a>
-
-
 </nav>
 
 <div class="container tr-body-register-margin">
-
     <h1>Register</h1>
-
     <div ng-show="model.error" class="alert alert-danger" role="alert">
         {{model.error}}
     </div>
@@ -26,8 +16,6 @@
     <input ng-model="user.username" type="text" class = "form-control" placeholder="username"/>
     <input ng-model="user.password" type="password" class = "form-control" placeholder="password"/>
     <input ng-model="model.verifypassword" type="password" class = "form-control" placeholder="verify password"/>
-
-    <!--<a  ng-click="model.createUsr(user)" class="btn btn-primary btn-block">Register</a>-->
     <a  ng-click="model.register(user)" class="btn btn-primary btn-block">Register</a>
     <a href="#/login" class="btn btn-danger btn-block">Cancel</a>
 
