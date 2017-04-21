@@ -16,6 +16,7 @@
         vm.searchUsers = searchUsers;
         vm.findUsers = findUsers;
         vm.follow = follow;
+        vm.unfollow = unfollow;
         vm.logout = logout;
         vm.usersearch;
         vm.menuItems = ['Profile', 'Movies', 'Followers', 'Following'];
@@ -167,14 +168,19 @@
                 .follow(vm.currentUser._id, followuser)
                 .then(function (response) {
                     var status = response.data;
-                    if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
-                        vm.alreadyFollowing=true;
-                    }
-                    else {
-                        vm.alreadyFollowing = false;
-                    }
+                    $location.url('/user/'+vm.currentUser._id);
+                })
+        }
 
-                    $location.url('/user/'+vm.user._id);
+
+        function unfollow(inputuser){
+            var unfollowuser = inputuser;
+            MovieUserService
+                .unfollow(vm.currentUser._id, unfollowuser)
+                .then(function(response){
+                    var status = response.data;
+                    init();
+                    $location.url('/user/'+vm.currentUser._id);
                 })
         }
     }

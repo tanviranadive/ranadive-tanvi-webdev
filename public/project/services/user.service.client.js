@@ -16,6 +16,7 @@
             "createUser": createUser,
             "findUsers": findUsers,
             "follow": follow,
+            "unfollow": unfollow,
             "loggedin": loggedin,
             "login": login,
             "logout": logout,
@@ -70,6 +71,10 @@
 
         function follow(userId, followUser) {
             return $http.put("/api/project/user/" + userId + "/follows/" + followUser.userId,followUser);
+        }
+
+        function unfollow(userId, unfollowUser) {
+            return $http.put("/api/project/user/" + userId + "/unfollows/" + unfollowUser._id,unfollowUser);
         }
 
         function loggedin() {

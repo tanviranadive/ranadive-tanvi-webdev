@@ -21,6 +21,7 @@ module.exports = function(app, movieuserModel) {
     app.get("/api/project/user/:userId/users", findUsers);
     app.put("/api/project/user/:userId", updateUser);
     app.put("/api/project/user/:userId/follows/:followUserId", follow);
+    app.put("/api/project/user/:userId/unfollows/:unfollowUserId", unfollow);
     app.post('/api/project/loggedin', loggedin);
     app.post('/api/project/isAdmin', isAdmin);
     app.put('/api/project/admin/:adminId/approve/review/:reviewId', approveCritic);
@@ -40,7 +41,6 @@ module.exports = function(app, movieuserModel) {
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
         callbackURL:process.env.FACEBOOK_CALLBACK_URL,
-
         profileFields: ['id','displayName', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
     };
 
@@ -258,10 +258,22 @@ module.exports = function(app, movieuserModel) {
                 });
     }
 
+    function unfollow(req, res) {
+        var loggedInUserId = req.params.userId;
+        var unfollowUserId = req.params.unfollowUserId;
+        var unfollowUser = req.body;
+        movieuserModel
+            .unfollowing(unfollowUser, loggedInUserId)
+            .then(function(response){
+                //var u = response.data;
+                res.send(response);
+
+            })
+    }
+
 
     function loggedin(req, res) {
         if(req.isAuthenticated()) {
-            //console.log("loggedin");
             res.json(req.user);
         } else {
             res.send('0');

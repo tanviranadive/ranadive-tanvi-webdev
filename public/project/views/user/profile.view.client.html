@@ -40,14 +40,6 @@
     </div>
 </nav>
 
-
-<div ng-show="model.error" class="alert alert-danger" >
-    {{model.error}}
-</div>
-
-<div class="alert alert-success" ng-show="model.message">
-    {{model.message}}
-</div>
 <div class="row container-fluid">
     <div class="col-xs-5 col-md-3 tr-left-profile tr-right-border">
 
@@ -81,6 +73,14 @@
     </div>
 
     <div class="col-xs-7 col-md-9 tr-right-profile" ng-show="model.activeMenu == 'Profile' && !model.usersearch">
+        <div ng-show="model.error" class="alert alert-danger" >
+            {{model.error}}
+        </div>
+
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+
         <div ng-hide="model.currentUser._id == model.user._id">
             <h4>Username: {{model.user.username}}</h4>
             <br>
@@ -165,6 +165,7 @@
         <i>{{model.user.following.length}} following</i>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="following in model.followingusers">
+                <a ng-if="model.userId==model.currentUser._id" ng-click="model.unfollow(following)" class="glyphicon glyphicon-remove pull-right"></a>
                 <a href="#/user/{{following._id}}">{{following.username}}</a>
             </li>
         </ul>

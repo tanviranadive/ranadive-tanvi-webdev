@@ -13,7 +13,8 @@
             "submitReview": submitReview,
             "findReviewRequests": findReviewRequests,
             "findReviewsForMovie": findReviewsForMovie,
-            "declineReview": declineReview
+            "declineReview": declineReview,
+            "removeReview": removeReview
         };
 
         return api;
@@ -33,6 +34,10 @@
 
         function declineReview(review){
             return $http.delete("/api/project/review/"+review._id, review);
+        }
+
+        function removeReview(reviewId){
+            return $http.delete("/api/project/review/"+reviewId+"/delete");
         }
 
     }

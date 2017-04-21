@@ -16,6 +16,7 @@
         vm.movieId = $routeParams.movieId;
         vm.currentUser = currentUser;
         vm.writeReview = writeReview;
+        vm.removeReview = removeReview;
         vm.follow = follow;
 
         function init() {
@@ -55,6 +56,15 @@
                 })
         }
 
+        function removeReview(reviewId){
+            ReviewService
+                .removeReview(reviewId)
+                .then(function(response){
+                    vm.message = "review deleted";
+                    init();
+            })
+        }
+
         function getMovieCast(movieId){
             MovieService
                 .getMovieCast(movieId)
@@ -91,6 +101,8 @@
                     else {
                         vm.alreadyFollowing = false;
                     }
+
+                    init();
                 })
         }
 

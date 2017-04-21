@@ -40,6 +40,14 @@
 
     <div class="container-fluid">
         <div class=".bg-overlay">
+            <div ng-show="model.error" class="alert alert-danger" >
+                {{model.error}}
+            </div>
+
+            <div class="alert alert-success" ng-show="model.message">
+                {{model.message}}
+            </div>
+
             <div>
                 <h2>{{model.movie.title}}</h2>
                 <div class="row">
@@ -122,6 +130,8 @@
                         <li class="list-group-item" ng-repeat="review in model.reviews.data" ng-show="review.isCritic">
                             <div id="userReviews">
                                 <span>
+                                <a ng-show="model.currentUser._id == review.user.userId"
+                                   ng-click="model.removeReview(review._id)" class="glyphicon glyphicon-remove pull-right"></a>
                                 <a href="#/user/{{review.user.userId}}">{{review.user.username}}</a>
                                 <a ng-if="model.user.following.indexOf(review.user.userId) >= 0" class = "btn btn-sm tr-upload-button">Already Following</a>
                                 <a ng-if="model.user.following.indexOf(review.user.userId) < 0"

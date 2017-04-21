@@ -66,7 +66,9 @@
                     <div class="col-md-4 col-sm-6 col-xs-12 placeholder" ng-repeat="upcomingMovie in model.upcomingMovies">
                         <div class="thumbnail tr-thumbnail">
                             <div class="tr-movie-toolbar" ng-hide="!model.userId">
-                                <a class="navbar-brand pull-right" ng-if="!model.alreadyLiked(upcomingMovie.id)" ng-click="model.addMovie(upcomingMovie.id,upcomingMovie)" ng-hide="!model.userId">
+                                <a class="navbar-brand pull-right" ng-if="!model.alreadyLiked(upcomingMovie.id)"
+                                   ng-init="liked=false"
+                                   ng-click="model.addMovie(upcomingMovie.id,upcomingMovie); liked=true" ng-hide="!model.userId || liked">
                                     <span class="glyphicon glyphicon-bookmark"></span>
                                 </a>
                             </div>
@@ -91,7 +93,8 @@
                 <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="movie in model.results.results">
                     <div class="thumbnail tr-thumbnail">
                         <div class="tr-movie-toolbar" ng-hide="!model.userId">
-                            <a class="navbar-brand pull-right" ng-if="!model.alreadyLiked" ng-click="model.addMovie(movie.id,movie)" ng-hide="!model.userId">
+                            <a class="navbar-brand pull-right" ng-if="!model.alreadyLiked(movie.id)" ng-init="liked=false"
+                               ng-click="model.addMovie(movie.id,movie); liked=true" ng-hide="!model.userId || liked">
                                 <span class="glyphicon glyphicon-bookmark"></span>
                             </a>
                         </div>

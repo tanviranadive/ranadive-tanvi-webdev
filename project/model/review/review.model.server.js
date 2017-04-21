@@ -12,6 +12,7 @@ module.exports = function () {
         findReviewsForMovie: findReviewsForMovie,
         approveCritic: approveCritic,
         declineReview: declineReview,
+        removeReview: removeReview,
         setModel: setModel
     };
 
@@ -68,6 +69,10 @@ module.exports = function () {
     }
 
     function declineReview(reviewId){
+        return ReviewModel.remove({_id: reviewId});
+    }
+
+    function removeReview(reviewId){
         return ReviewModel.remove({_id: reviewId});
     }
 

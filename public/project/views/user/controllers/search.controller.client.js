@@ -6,7 +6,7 @@
         .module("MovieApp")
         .controller("SearchController", searchController);
 
-    function searchController($routeParams, MovieService, MovieUserService, currentUser, $http, $location) {
+    function searchController($routeParams, $route, MovieService, MovieUserService, currentUser, $http, $location) {
         var vm = this;
         vm.currentUser = currentUser;
         //vm.search = search;
@@ -16,6 +16,7 @@
         vm.upcomingMovies = upcomingMovies;
         vm.showDetails = showDetails;
         vm.alreadyLiked = alreadyLiked;
+        vm.liked=[];
         vm.logout = logout;
 
         function init() {
@@ -42,9 +43,7 @@
                 .success(function(results) {
                         vm.searchActivated=true;
                         vm.results = results;
-
-                    }
-                );
+                    });
         }
 
         function addMovie(movieId,movie) {
@@ -61,6 +60,9 @@
                     else {
                         vm.err = "could not add movie to watchlist";
                     }
+                    vm.liked.push(movieId);
+                    //$route.reload();
+                    //$location.url('/user/'+vm.currentUser._id+'/searchMovies');
                 })
         }
 

@@ -16,6 +16,8 @@ module.exports = function () {
         findUsers: findUsers,
         following: following,
         followers: followers,
+        unfollowing: unfollowing,
+        unfollowers: unfollowers,
         addMovie: addMovie,
         addUser: addUser,
         likeMovie: likeMovie,
@@ -89,6 +91,29 @@ module.exports = function () {
     function followers(followUserId, loggedInUserId) {
         return MovieUserModel.update({_id: followUserId}, {$addToSet: {followers: loggedInUserId}});
     }
+
+    function unfollowing(unfollowUser, loggedInUserId){
+        return MovieUserModel
+            .findById(loggedInUserId)
+            .then(function(user) {
+                user.following.splice(user.following.indexOf(unfollowUser._id),1);
+                user.save();
+                return unfollowers(unfollowUser, loggedInUserId);
+            }, function(err) {
+                return err;
+            })
+    }
+
+    function unfollowers(unfollowUser, loggedInUserId){
+        return MovieUserModel.findById(unfollowUser._id)
+            .then(function (user) {
+                user.followers.splice(user.followers.indexOf(loggedInUserId),1);
+                return user.save();
+            }, function (err) {
+                return err;
+            });
+    }
+
 
 
     function addMovie(loggedInUserId, movie){

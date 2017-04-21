@@ -8,6 +8,7 @@ module.exports = function(app, reviewModel) {
     app.get("/api/project/admin/:userId/requests",findReviewRequests);
     app.get("/api/project/movie/:movieId/reviews", findReviewsForMovie);
     app.delete("/api/project/review/:reviewId", declineReview);
+    app.delete("/api/project/review/:reviewId/delete", removeReview);
 
     function findMovieById(req, res) {
         var movieId = req.params.movieId;
@@ -60,6 +61,18 @@ module.exports = function(app, reviewModel) {
         reviewModel
             .declineReview(reviewId)
             .then(function(response) {
+                res.send(response);
+            }, function(err){
+                res.status(400).send(err);
+            })
+    }
+
+    function removeReview(req, res){
+        var reviewId = req.params.reviewId;
+        reviewModel
+            .removeReview(reviewId)
+            .then(function(response) {
+                console.log(response);
                 res.send(response);
             }, function(err){
                 res.status(400).send(err);
