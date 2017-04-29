@@ -440,3 +440,7 @@ a:focus, a:hover{
     color: white;
     text-align: center;
 }
+
+.tr-assignment-navbar{
+    background-color: #3f3f3f;
+}
