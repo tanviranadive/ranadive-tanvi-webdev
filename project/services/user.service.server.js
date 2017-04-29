@@ -41,6 +41,9 @@ module.exports = function(app, movieuserModel) {
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
         callbackURL:process.env.FACEBOOK_CALLBACK_URL,
+        /*clientID: 781336138707917,
+        clientSecret: '18c041448879c701fd6d809fe6e74aa6',
+        callbackURL:'http://localhost:3000/auth/facebook/callback',*/
         profileFields: ['id','displayName', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
     };
 
